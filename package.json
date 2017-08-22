@@ -1,0 +1,30 @@
+{
+  "name": "kirby-webpack",
+  "version": "1.0.0",
+  "description": "kirby setup with cool front-end tools",
+  "main": "index.js",
+  "scripts": {
+    "install": "scripts/kirby-update.js",
+    "update": "scripts/kirby-update.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/brocessing/kirby-webpack.git"
+  },
+  "keywords": [
+    "kirby",
+    "webpack",
+    "starterkit"
+  ],
+  "author": "Brocessing (http://github.com/brocessing)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/brocessing/kirby-webpack/issues"
+  },
+  "homepage": "https://github.com/brocessing/kirby-webpack#readme",
+  "devDependencies": {
+    "fs-extra": "^4.0.1",
+    "github-download": "^0.5.0",
+    "kool-shell": "^1.5.0"
+  }
+}
