@@ -7,8 +7,6 @@
 
   <title><?= $site->title()->html() ?> | <?= $page->title()->html() ?></title>
 
-  <?= less('assets/less/index.less') ?>
-  <?= css('assets/css/index.css') ?>
-
+  <?= css('assets/bundle.css') ?>
 </head>
 <body>
