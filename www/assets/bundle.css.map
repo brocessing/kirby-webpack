@@ -1,0 +1,1 @@
+{"version":3,"sources":["webpack:///./src/app.scss"],"names":[],"mappings":"AAAA,KACE,WAAY","file":"bundle.css","sourcesContent":["body {\n  margin: 50px;\n}\n\n\n\n// WEBPACK FOOTER //\n// ./src/app.scss"],"sourceRoot":""}
