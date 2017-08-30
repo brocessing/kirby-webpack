@@ -2,6 +2,7 @@ const fs = require('fs-extra')
 const path = require('path')
 const ghdownload = require('github-download')
 const { paths } = require('../webpack.config.common')
+const ignore = require('./utils/update-gitignore')
 const sh = require('kool-shell')()
   .use(require('kool-shell/plugins/log'), {colors: true})
   .use(require('kool-shell/plugins/spinner'))
@@ -25,6 +26,7 @@ const modules = (kirbyModules => {
   })
   return modules
 })(require('../kirby.config.js').modules)
+
 
 // @TODO: proper arguments handling with minimist
 const force = (process.argv[2] === '-f' || process.argv[2] === '--force')
@@ -66,6 +68,7 @@ Promise.resolve()
     spinner.log('Check for updates...')
   })
   .then(() => updateModules())
+  .then(() => ignore(modules.map(module => module.dest)))
   .then(() => {
     spinner.pause(true)
     if (spinnerStatus === 'check') sh.info('🕛  ' + kirbyTxt + 'Nothing to update.')
@@ -87,4 +90,7 @@ Promise.resolve()
     }
   }))
   .then(() => sh.log())
-  .catch(err => sh.error(err))
+  .catch(err => {
+    spinner.pause(true)
+    sh.error(err)
+  })

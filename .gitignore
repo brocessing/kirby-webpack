@@ -1,9 +1,12 @@
 ### Kirby ###
-www/kirby
-www/panel
-www/site/accounts
-www/assets/avatars
 www/thumbs/*
+!www/thumbs/index.html
+www/site/cache/*
+!www/site/cache/index.html
+www/site/accounts/*
+!www/site/accounts/index.html
+www/assets/avatars/*
+!www/assets/avatars/index.html
 
 ### Workflow & Editor ###
 .vscode
@@ -56,3 +59,10 @@ Icon
 Network Trash Folder
 Temporary Items
 .apdisk
+
+# <KirbyWebpack>
+www/kirby
+www/panel
+www/site/fields/markdown
+www/site/widgets/kirby-backup-widget
+# </KirbyWebpack>
