@@ -12,6 +12,13 @@ const paths = {
   src: path.join(__dirname, 'src'),
   public: path.join(__dirname, 'www'),
   assets: path.join(__dirname, 'www', 'assets'),
+
+  core: path.join(__dirname, 'www', 'kirby'),
+  panel: path.join(__dirname, 'www', 'panel'),
+  fields: path.join(__dirname, 'www', 'site', 'fields'),
+  plugins: path.join(__dirname, 'www', 'site', 'plugins'),
+  widgets: path.join(__dirname, 'www', 'site', 'widgets'),
+
   build: path.join(__dirname, 'www'),
   base: basePaths[appEnv] || basePaths.development
 }

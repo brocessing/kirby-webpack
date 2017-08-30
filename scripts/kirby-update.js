@@ -6,22 +6,29 @@ const sh = require('kool-shell')()
   .use(require('kool-shell/plugins/log'), {colors: true})
   .use(require('kool-shell/plugins/spinner'))
 
-const kirbyTxt = sh.colors.blue('[Kirby Updater] ')
+const modules = (kirbyModules => {
+  let modules = []
+  Object.keys(kirbyModules).map(moduleType => {
+    if (typeof kirbyModules[moduleType] === 'object' && kirbyModules[moduleType]) {
+      Object.keys(kirbyModules[moduleType]).forEach(moduleName => {
+        modules.push({
+          src: kirbyModules[moduleType][moduleName],
+          dest: path.join(paths[moduleType], moduleName)
+        })
+      })
+    } else {
+      modules.push({
+        src: kirbyModules[moduleType],
+        dest: paths[moduleType]
+      })
+    }
+  })
+  return modules
+})(require('../kirby.config.js').modules)
 
 // @TODO: proper arguments handling with minimist
 const force = (process.argv[2] === '-f' || process.argv[2] === '--force')
-
-// @TODO: modules list in either its own config file, or in package.json
-const modules = [
-  {
-    src: 'https://github.com/getkirby/kirby.git',
-    dest: path.join(paths.public, 'kirby')
-  },
-  {
-    src: 'https://github.com/getkirby/panel.git',
-    dest: path.join(paths.public, 'panel')
-  }
-]
+const kirbyTxt = sh.colors.blue('[Kirby Updater] ')
 
 function updateModules () {
   return Promise.all(modules.map((module) => new Promise((resolve, reject) => {
