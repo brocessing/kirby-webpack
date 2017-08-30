@@ -13,17 +13,14 @@
 <br><br>
 
 ## Features
+- Kirby CMS
 - Webpack 3
 - SASS + PostCSS + Autoprefixer
 - ES6 transpilation with babel + babel-preset-env
 - Webpack Dev Server and Hot Reloading
-- Static rendering from handlebars templates
-- Easily configurable with multiple config files for each parts of the starter kit
-- _autoPartials_ option to register all your handlebars partials automatically before any rendering
-- BrowserSync and its features (localtunnel, xip.io, ...)
-- Hash, publicPath from webpack is available as data in your layouts
+- Easily configurable with multiple config files
 - Linting with ESLint (and Standard plugin) and Stylelint
-- Generate stats.json from your bundled js with `analyze` command
+- Generate `stats.json` from your bundled js with `stats` command
 
 
 ## Installation
@@ -88,5 +85,3 @@ module.exports = {
 
 ## License
 MIT.
-
-You can also [download the latest release](https://github.com/brocessing/kirby-webpack/releases/latest)
