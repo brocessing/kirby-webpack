@@ -9,10 +9,26 @@
 </div>
 
 <br><br>
-<br><br>
-<br><br>
+
+## About
+
+> Kirby is a file-based CMS. Easy to setup. Easy to use. Flexible as hell.
+
+Kirby-webpack makes it _even more_ easier to setup and use, by building around it a full [Webpack](https://webpack.github.io/) environnement, with live-reload, [SASS](http://sass-lang.com/) / [PostCSS](http://postcss.org/) compiler and `ES6` transpilation.
+
+### Easy to setup
+
+Clone, `npm install` and you're good to go. 
+
+#### Want a custom starter kit ? 
+[Fork](https://github.com/brocessing/kirby-webpack#fork-destination-box) this repo and build your own starter kit inside Kirby-webpack. Use [`kirby.config.js`]() to define your favorite Kirby plugins, fields and widgets, and Kirby-webpack will automagically install and update them for you.
+
+### Easy to use
+
+Launch the local dev server and start building your project as usual. When you're ready to deploy, use the built-in build commands to bundle your javascript and SASS sources.
 
 ## Features
+
 - Kirby CMS
 - Webpack 3
 - SASS + PostCSS + Autoprefixer
@@ -40,22 +56,9 @@ $ unboil
 
 ## Usage
 
-### Development
+### PHP dev server with live reload
 ```sh
 $ npm run start
-$ npm run lint
-$ npm run lint:js
-```
-
-### Preproduction
-```sh
-$ npm run build:preprod
-$ npm run stats
-```
-
-### Production
-```sh
-$ npm run build
 ```
 
 ### Update
