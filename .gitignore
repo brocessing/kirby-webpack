@@ -7,6 +7,7 @@ www/site/accounts/*
 !www/site/accounts/index.html
 www/assets/avatars/*
 !www/assets/avatars/index.html
+www/site/config/license.php
 
 ### Workflow & Editor ###
 .vscode
