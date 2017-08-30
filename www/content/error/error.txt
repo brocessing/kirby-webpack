@@ -1,5 +1,0 @@
-Title: Error
-
-----
-
-Text: C'est bon ?
