@@ -1,9 +1,9 @@
 const path = require('path')
 const webpack = require('webpack')
 const merge = require('webpack-merge')
-const commonConfig = require('./webpack.config.common')
-const paths = require('./paths.config')
 const ExtractTextPlugin = require('extract-text-webpack-plugin')
+const common = require('./webpack.config.common')
+const paths = common.paths
 
 const prodConfig = {
   entry: {
@@ -15,29 +15,7 @@ const prodConfig = {
         test: /\.(scss)$/,
         use: ExtractTextPlugin.extract({
           fallback: 'style-loader',
-          use: [
-            {
-              loader: 'css-loader',
-              options: {
-                url: false,
-                sourceMap: true,
-                minimize: true
-              }
-            },
-            {
-              loader: 'postcss-loader',
-              options: {
-                config: { path: path.resolve(__dirname, 'postcss.config.js') },
-                sourceMap: true
-              }
-            },
-            {
-              loader: 'sass-loader',
-              options: {
-                sourceMap: true
-              }
-            }
-          ]
+          use: common.CSSLoaders
         })
       }
     ]
@@ -60,4 +38,4 @@ const prodConfig = {
   bail: true
 }
 
-module.exports = merge(commonConfig, prodConfig)
+module.exports = merge(common.webpack, prodConfig)

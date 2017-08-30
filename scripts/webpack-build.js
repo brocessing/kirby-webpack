@@ -1,10 +1,7 @@
-#!/usr/bin/env node
-'use strict'
-
 const startTime = new Date()
 
 const webpack = require('webpack')
-const webpackConfig = require('../config/webpack.config.prod')
+const webpackConfig = require('../webpack.config.prod')
 const ProgressBarPlugin = require('progress-bar-webpack-plugin')
 
 const sh = require('kool-shell')()
@@ -42,7 +39,7 @@ Promise.resolve()
     sh.exit(0)
   })
 
-function webpackError(err) {
+function webpackError (err) {
   sh.error('Error during the webpack compilation')
   sh.error(err)
   sh.exit(0)
