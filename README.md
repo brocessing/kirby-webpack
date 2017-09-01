@@ -1,3 +1,7 @@
+<p align="center">
+  <img src="https://raw.githubusercontent.com/brocessing/kirby-webpack/assets/kirbywebpack-logo.png" width="100" height="auto" alt="logo">
+</p>
+
 <h1 align="center">kirby-webpack</h1>
 <h3 align="center">Kirby setup with cool front-ends tools</h3>
 
