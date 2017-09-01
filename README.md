@@ -21,7 +21,7 @@
 - [Installation](#installation)
 - [Folder Structure](#folder-structure)
 - [Working with a webpack setup](#working-with-a-webpack-setup)
-- [List of kirby-webpack commands](#list-of-kirby-webpacks-commands)
+- [List of kirby-webpack commands](#list-of-kirby-webpack-commands)
 - [License](#license)
 
 <br><br>
@@ -37,9 +37,9 @@ But it lacks of frontends tools; especially if you're more a front than a back d
 ## Features
 
 - No more trouble with git submodules: introducing our own **Kirby Package Manager**
-- Browsersync Dev Server with Hot Reloading ability - no reload on style changes
+- [Browsersync](https://browsersync.io/) dev server with live reloading on all your websites files
 - **Built-in PHP Server** wrapped in the dev server - we handle PHP for you
-- [Webpack 3](https://webpack.github.io/)
+- [Webpack 3](https://webpack.github.io/) with [HMR](https://webpack.github.io/docs/hot-module-replacement.html) 
 - [SASS](http://sass-lang.com/) + [PostCSS](http://postcss.org/)  + [Autoprefixer](https://github.com/postcss/autoprefixer)
 - `ES6` transpilation with [babel](https://babeljs.io/) + [babel-preset-env](https://github.com/babel/babel-preset-env)
 - Linting with [ESLint](https://eslint.org/) and the [Standard](http://standardjs.com/) presets
