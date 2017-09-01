@@ -10,6 +10,16 @@
 
 <br><br>
 
+## Table of Content
+- [About](#About)
+- [Features](#features)
+- [Installation](#installation)
+- [Usage](#usage)
+  - [Working with Webpack](#working-with-webpack)
+  - [PHP dev server with live reload](#php-dev-server-with-live-reload)
+  - [Update](#update)
+- [License](#license)
+
 ## About
 
 > Kirby is a file-based CMS. Easy to setup. Easy to use. Flexible as hell.
