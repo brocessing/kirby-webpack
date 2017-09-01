@@ -29,13 +29,13 @@ Launch the local dev server and start building your project as usual. When you'r
 
 ## Features
 
-- Kirby CMS
-- Webpack 3
-- SASS + PostCSS + Autoprefixer
-- ES6 transpilation with babel + babel-preset-env
+- [Kirby CMS](https://getkirby.com/)
+- [Webpack 3](https://webpack.github.io/)
+- [SASS](http://sass-lang.com/) + [PostCSS](http://postcss.org/)  + [Autoprefixer](https://github.com/postcss/autoprefixer)
+- `ES6` transpilation with [babel](https://babeljs.io/) + [babel-preset-env](https://github.com/babel/babel-preset-env)
 - Webpack Dev Server and Hot Reloading
 - Easily configurable with multiple config files
-- Linting with ESLint (and Standard plugin) and Stylelint
+- Linting with [ESLint](https://eslint.org/) (and [Standard](http://standardjs.com/) plugin) and [Stylelint](https://stylelint.io/)
 - Generate `stats.json` from your bundled js with `stats` command
 
 
@@ -55,6 +55,15 @@ $ unboil
 ```
 
 ## Usage
+
+### Working with Webpack
+
+Using a webpack setup means that you now have sources files for all your compiled/bundled built files. These source files are placed in `src/` outside the main `www/` kirby folder, and don't have to be deployed.
+
+When running `npm run build`, `entry.js` and `app.scss` will be compiled and bundled into your kirby `assets/` folder.
+
+<sup>_Note: you can totally use Kirby as usual by creating your `js` and `css` files into `www/assets/`, but you will not benefit from webpack compilation. You will however still have live reload capability._</sup>
+
 
 ### PHP dev server with live reload
 ```sh
@@ -87,4 +96,4 @@ module.exports = {
 ```
 
 ## License
-MIT.
+[MIT.](https://tldrlegal.com/license/mit-license)
