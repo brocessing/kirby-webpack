@@ -3,7 +3,7 @@
 </p>
 
 <h1 align="center">kirby-webpack</h1>
-<h3 align="center">Kirby setup with cool front-ends tools</h3>
+<h3 align="center">A kirby starter-kit with modern frontend tools</h3>
 
 <div align="center">
   <!-- License -->
@@ -12,102 +12,120 @@
   </a>
 </div>
 
-<br><br>
+<br><br><br><br>
 
 ## Table of Content
-- [About](#About)
+- [About](#about)
 - [Features](#features)
+- [Requirements](#requirements)
 - [Installation](#installation)
-- [Usage](#usage)
-  - [Working with Webpack](#working-with-webpack)
-  - [PHP dev server with live reload](#php-dev-server-with-live-reload)
-  - [Update](#update)
+- [Folder Structure](#folder-structure)
+- [Working with a webpack setup](#working-with-a-webpack-setup)
+- [List of kirby-webpack commands](#list-of-kirby-webpacks-commands)
 - [License](#license)
+
+<br><br>
 
 ## About
 
 > Kirby is a file-based CMS. Easy to setup. Easy to use. Flexible as hell.
 
-Kirby-webpack makes it _even more_ easier to setup and use, by building around it a full [Webpack](https://webpack.github.io/) environnement, with live-reload, [SASS](http://sass-lang.com/) / [PostCSS](http://postcss.org/) compiler and `ES6` transpilation.
+But it lacks of frontends tools; especially if you're more a front than a back developper. kirby-webpack wraps PHP and kirby inside a full pre-configured [npm](npmjs.com) + [Webpack](https://webpack.github.io/) environnement.
 
-### Easy to setup
-
-Clone, `npm install` and you're good to go. 
-
-#### Want a custom starter kit ? 
-[Fork](https://github.com/brocessing/kirby-webpack#fork-destination-box) this repo and build your own starter kit inside Kirby-webpack. Use [`kirby.config.js`]() to define your favorite Kirby plugins, fields and widgets, and Kirby-webpack will automagically install and update them for you.
-
-### Easy to use
-
-Launch the local dev server and start building your project as usual. When you're ready to deploy, use the built-in build commands to bundle your javascript and SASS sources.
+<br><br>
 
 ## Features
 
-- [Kirby CMS](https://getkirby.com/)
+- No more trouble with git submodules: introducing our own **Kirby Package Manager**
+- Browsersync Dev Server with Hot Reloading ability - no reload on style changes
+- **Built-in PHP Server** wrapped in the dev server - we handle PHP for you
 - [Webpack 3](https://webpack.github.io/)
 - [SASS](http://sass-lang.com/) + [PostCSS](http://postcss.org/)  + [Autoprefixer](https://github.com/postcss/autoprefixer)
 - `ES6` transpilation with [babel](https://babeljs.io/) + [babel-preset-env](https://github.com/babel/babel-preset-env)
-- Webpack Dev Server and Hot Reloading
-- Easily configurable with multiple config files
-- Linting with [ESLint](https://eslint.org/) (and [Standard](http://standardjs.com/) plugin) and [Stylelint](https://stylelint.io/)
-- Generate `stats.json` from your bundled js with `stats` command
+- Linting with [ESLint](https://eslint.org/) and the [Standard](http://standardjs.com/) presets
+- Generate a `stats.json` file from your bundled js to optimize your dependency tree
+- Multiple config files to make your own workflow from the starterkit
 
+<br><br>
+
+## Folder structure
+```sh
+kirby-webpack
+↳ scripts # internal scripts used by the starter kit commands
+↳ src # Javascript & SASS sources bundled by Webpack
+↳ www # The only folder to deploy. Contains all public files (kirby / bundles / assets)
+↳ node_modules # nodes module depedencies
+```
+
+<br><br>
+
+## Requirements
+- node >= 6
+
+- npm >= 3
+
+- php >= 5.4
+  - OSX → `php` command is native. you don't have to do anything!
+  - Windows → you can install it from windows via the official php website: [http://windows.php.net/download/](http://windows.php.net/download/)
+
+<br><br>
 
 ## Installation
+
+##### Clone the starterkit and install its dependencies
+> npm install will also trigger the kirby package manager. <br> kirby core, panels, plugins will be automatically installed just after an npm installation.
+
 ```sh
 $ git clone https://github.com/brocessing/kirby-webpack my-project
 $ cd my-project
 $ npm install
 ```
 
-Before starting your project, it is recommanded to unboil it using [brocessing/unboil](https://github.com/brocessing/unboil) :
+##### :bulb: Before starting your project, it is recommanded to unboil it using [brocessing/unboil](https://github.com/brocessing/unboil) :
+> unboil allows you to reset a boilerplate project (files like package.json, readme, git) and quickly make your own project from it.
 
 ```sh
-$ npm i -g unboil
+$ npm i -g unboil # install unboil globally
 $ cd my-project
-$ unboil
+$ unboil # use it on your brand new kirby-webpack installation
 ```
 
-## Usage
+<br><br>
 
-### Working with Webpack
-
-Using a webpack setup means that you now have sources files for all your compiled/bundled built files. These source files are placed in `src/` outside the main `www/` kirby folder, and don't have to be deployed.
-
-When running `npm run build`, `entry.js` and `app.scss` will be compiled and bundled into your kirby `assets/` folder.
+## Working with a Webpack setup
+Using webpack means that you have sources files and their dependencies that will be compiled to bundle files when doing `npm run build`. The right way to use kirby-webpack is to **code all your javascript and css in the `src` folder**. Webpack will then create bundle directly into the main `www` kirby folder, which contain all your site. That means the `www` is the only folder you have to deploy to your server.
 
 <sup>_Note: you can totally use Kirby as usual by creating your `js` and `css` files into `www/assets/`, but you will not benefit from webpack compilation. You will however still have live reload capability._</sup>
 
+<br><br>
 
-### PHP dev server with live reload
-```sh
-$ npm run start
-```
+## List of kirby-webpack commands
 
-### Update
-###### Update Kirby dependencies
-```sh
-$ npm run kirby:update
-```
+#### `npm run install`
+- TODO
 
-###### Edit Kirby dependencies
-```js
-// kirby.config.js
+#### `npm run start`
+- TODO
 
-module.exports = {
-  modules: {
-    core: 'https://github.com/getkirby/kirby.git',
-    panel: 'https://github.com/getkirby/panel.git',
-    fields: {
-      'field1': 'git-clone-url.git',
-      'field2': 'git-clone-url.git'
-    },
-    plugins: {},
-    widgets: {}
-  }
-}
+#### `npm run build`
+- TODO
 
-```
+#### `npm run kirby:update`
+- TODO
+
+#### `npm run kirby:add`
+- TODO
+
+#### `npm run kirby:remove`
+- TODO
+
+#### `npm run stats`
+- TODO
+
+#### `npm run lint`
+- TODO
+
+<br><br>
 
 ## License
 [MIT.](https://tldrlegal.com/license/mit-license)
