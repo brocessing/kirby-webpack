@@ -14,13 +14,13 @@ const modules = (kirbyModules => {
       Object.keys(kirbyModules[moduleType]).forEach(moduleName => {
         modules.push({
           src: kirbyModules[moduleType][moduleName],
-          dest: path.join(paths[moduleType], moduleName)
+          dest: path.join(paths.kirby[moduleType], moduleName)
         })
       })
     } else {
       modules.push({
         src: kirbyModules[moduleType],
-        dest: paths[moduleType]
+        dest: paths.kirby[moduleType]
       })
     }
   })
@@ -72,7 +72,10 @@ Promise.resolve()
   .then(() => {
     spinner.pause(true)
     if (spinnerStatus === 'check') sh.info('🕛  ' + kirbyTxt + 'Nothing to update.')
-    else sh.info('🕛  ' + kirbyTxt + 'Update complete.')
+    else {
+      sh.info('🕛  ' + kirbyTxt + 'Update complete.')
+      return fs.emptyDir(paths.kirby.cache)
+    }
   })
   .then(() => modules.forEach(module => {
     switch (module.status) {
