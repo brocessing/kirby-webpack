@@ -64,6 +64,4 @@ Temporary Items
 # <KirbyWebpack>
 www/kirby
 www/panel
-www/site/fields/markdown
-www/site/widgets/kirby-backup-widget
 # </KirbyWebpack>

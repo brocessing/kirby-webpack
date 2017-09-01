@@ -12,35 +12,62 @@ const sh = require('kool-shell')()
   .use(require('kool-shell/plugins/exit'))
 
 const bs = browserSync.create()
-let isWebpackInit = false
 
-sh.log()
-sh.step(1, 2, 'Running the webpack compiler...')
-const compiler = webpack(webpackConfig)
-const hotMiddleware = webpackHotMiddleware(compiler)
-const devMiddleware = webpackDevMiddleware(compiler, {
-  publicPath: paths.base + 'assets',
-  stats: {
-    colors: true,
-    hash: false,
-    timings: false,
-    chunks: false,
-    chunkModules: false,
-    modules: false
-  }
-})
-const phpMiddleware = phpServerMiddleware({
-  host: 'localhost',
-  root: paths.public,
-  headers: { 'X-Forwarded-For': 'webpack' },
-  verbose: false
-})
+let isWebpackInit, isPhpInit
+let compiler
+let hotMiddleware, devMiddleware, phpMiddleware
 
-const middlewares = [devMiddleware, hotMiddleware, phpMiddleware]
+phpInit()
+
+function phpInit () {
+  sh.log()
+  sh.step(1, 3, 'Starting a php server...')
+
+  phpMiddleware = phpServerMiddleware({
+    host: 'localhost',
+    root: paths.public,
+    headers: { 'X-Forwarded-For': 'webpack' },
+    verbose: false,
+    promptBinary: true,
+    bin: 'php',
+    onStart: () => {
+      if (isPhpInit) return
+      isPhpInit = true
+      webpackInit()
+    }
+  })
+}
+
+function webpackInit () {
+  sh.log()
+  sh.step(2, 3, 'Running the webpack compiler...')
+  compiler = webpack(webpackConfig)
+  hotMiddleware = webpackHotMiddleware(compiler)
+  devMiddleware = webpackDevMiddleware(compiler, {
+    publicPath: paths.base + 'assets',
+    stats: {
+      colors: true,
+      hash: false,
+      timings: false,
+      chunks: false,
+      chunkModules: false,
+      modules: false
+    }
+  })
+  compiler.plugin('done', () => {
+    // init the browserSync server once a first build is ready
+    if (isWebpackInit) return
+    isWebpackInit = true
+    process.nextTick(browserSyncInit)
+  })
+}
 
 function browserSyncInit () {
   sh.log()
-  sh.step(2, 2, 'Starting the browser-sync server...')
+  sh.step(3, 3, 'Starting the browser-sync server...')
+
+  const middlewares = [devMiddleware, hotMiddleware, phpMiddleware]
+
   bs.init({
     server: { baseDir: paths.public },
     middleware: middlewares,
@@ -58,12 +85,12 @@ function browserSyncInit () {
         path.join(paths.public, 'thumbs', '**/*')
       ]
     }
-  })
+  }, ready)
 }
 
-compiler.plugin('done', () => {
-  // init the browserSync server once a first build is ready
-  if (isWebpackInit) return
-  isWebpackInit = true
-  process.nextTick(browserSyncInit)
-})
+function ready () {
+  process.nextTick(() => {
+    sh.log()
+    sh.success('kirby-webpack server is ready !\n')
+  })
+}
