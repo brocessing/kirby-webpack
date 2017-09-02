@@ -53,7 +53,7 @@ const CSSLoaders = [
 const webpack = {
   output: {
     publicPath: paths.base + 'assets',
-    path: paths.assets,
+    path: paths.kirby.assets,
     filename: '[name].js',
     chunkFilename: '[name].[id].chunk.js'
   },
