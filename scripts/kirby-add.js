@@ -33,6 +33,7 @@ function askType () {
   const modulePaths = {
     fields: paths.kirby.fields,
     plugins: paths.kirby.plugins,
+    tags: paths.kirby.tags
     widgets: paths.kirby.widgets
   }
 

@@ -18,6 +18,7 @@ const paths = {
     assets: path.join(__dirname, 'www', 'assets'),
     cache: path.join(__dirname, 'www', 'site', 'cache'),
     fields: path.join(__dirname, 'www', 'site', 'fields'),
+    tags: path.join(__dirname, 'www', 'site', 'tags'),
     plugins: path.join(__dirname, 'www', 'site', 'plugins'),
     widgets: path.join(__dirname, 'www', 'site', 'widgets'),
   },
