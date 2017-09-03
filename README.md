@@ -121,11 +121,11 @@ kirby-webpack/
 ### Webpack
 Using Webpack means that you can now have source files and dependencies for all your `JS` and `CSS` assets.
 
-The right way to use Kirby-webpack is to **code all your javascript and LESS (or Sass, or Stylus) files in the `src` folder**. On `npm run build`, Webpack will analyze, compile and bundle all your sources into the main [`www/`](www) Kirby folder.
+The right way to use Kirby-webpack is to **code all your javascript and LESS (or Sass, or Stylus) files in the [`src/`](src) folder**. On `npm run build`, Webpack will analyze, compile and bundle all your sources into the main [`www/`](www) Kirby folder.
 
 That means that [`www/`](www) is the only folder you have to deploy to your server.
 
->Note: you can totally use Kirby as usual by creating your `js` and/or `css` files into [`www/assets/`](www/assets), but you will not benefit from Webpack compilation. You will however still have livereload -not auto-injection- capability.
+>Note: you can totally use Kirby as usual by creating your `js` and/or `css` files into [`www/assets/`](www/assets), but you will not benefit from Webpack compilation nor auto-injection. You will however still have livereload capability.
 
 #### Relative urls in CSS sourcefiles
 :warning: If you use relative url in your sass/stylus/less, you had to write them **relative to the output of the bundled css file**, not the source filepath.
@@ -139,19 +139,13 @@ That means that [`www/`](www) is the only folder you have to deploy to your serv
  */
 
 /* GOOD: logo.png is relative to your bundle.css filepath */
-body {
-  background: url('images/logo.png');
-}
+body { background: url('images/logo.png'); }
 
-/* WRONG: logo.png don't have to be relative to your website root */
-body {
-  background: url('assets/images/logo.png');
-}
+/* WRONG: logo.png doesn't have to be relative to your website root */
+body { background: url('assets/images/logo.png'); }
 
-/* WRONG: logo.png don't have to be relative to the source file */
-body {
-  background: url('../www/assets/images/logo.png');
-}
+/* WRONG: logo.png doesn't have to be relative to the source file */
+body { background: url('../www/assets/images/logo.png'); }
 ```
 
 <br>
@@ -159,13 +153,13 @@ body {
 ### Kirby
 _Kirby-webpack try to be as least intrusive as possible. That said, there is some minor modifications to your ordinary Kirby config you need to be aware of :_
 
-#### kirby-webpack plugin
-There is a special kirby-webpack kirby plugin containing all required helper to make kirby-webpack working correctly. Don't remove it!
+#### The `kirby-webpack` plugin
+There is a special [`kirby-webpack`](www/site/plugins/kirby-webpack) Kirby plugin containing all required helpers to make Kirby-webpack working correctly. Don't remove it!
 
 #### CSS livereload 
 
-> Use **`liveCSS()`** instead of the usual `css()` to enable the CSS hot-reloading.<br>
-Continue to use css() for simple vendor CSS files which doesn't require hot-reloading.
+> Use **`liveCSS()`** instead of the usual `css()` to enable the CSS hot-reloading.  
+Continue to use `css() for simple vendor CSS files which doesn't require hot-reloading.
 
 ```php  
 <?php
@@ -214,7 +208,7 @@ The registered plugins will be added to [`.gitignore`](.gitignore), and updated 
 
 <p></p>
 
-> Note: you can still manually download and install plugin the old way, but **Kirby Package Manager** won't be able to track them.
+> Note: you can still manually download and install plugins the old way, but **Kirby Package Manager** won't be able to track them.
 
 <br><br>
 
