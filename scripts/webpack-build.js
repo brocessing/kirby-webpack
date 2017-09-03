@@ -24,6 +24,9 @@ Promise.resolve()
     () =>
       new Promise((resolve, reject) => {
         compiler.run((err, stats) => {
+          stats.compilation.modules.forEach((module => {
+            if (module.error) return reject(module.error)
+          }))
           if (!err) resolve(stats)
           else reject(err)
         })
