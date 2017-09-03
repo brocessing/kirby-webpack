@@ -98,7 +98,7 @@ kirby-webpack/
 │   # built-in scripts used by Kirby-webpack
 │
 ├── src/           
-│   # JS & SASS sources to be bundled by Webpack
+│   # JS & Less/Sass/Stylus sources to be bundled by Webpack
 │
 ├── www/               
 │   # your usual Kirby website folder
@@ -125,21 +125,52 @@ The right way to use Kirby-webpack is to **code all your javascript and LESS (or
 
 That means that [`www/`](www) is the only folder you have to deploy to your server.
 
->Note: you can totally use Kirby as usual by creating your `js` and/or `css` files into [`www/assets/`](www/assets), but you will not benefit from Webpack compilation. You will however still have livereload capability.
+>Note: you can totally use Kirby as usual by creating your `js` and/or `css` files into [`www/assets/`](www/assets), but you will not benefit from Webpack compilation. You will however still have livereload -not auto-injection- capability.
+
+#### Relative urls in CSS sourcefiles
+:warning: If you use relative url in your sass/stylus/less, you had to write them **relative to the output of the bundled css file**, not the source filepath.
+
+###### Example
+```css
+/**
+ * Your less source file is 'src/index.less'
+ * It will be bundle to 'www/assets/bundle.css'
+ * You want to require 'www/assets/images/logo.png' in your less file.
+ */
+
+/* GOOD: logo.png is relative to your bundle.css filepath */
+body {
+  background: url('images/logo.png');
+}
+
+/* WRONG: logo.png don't have to be relative to your website root */
+body {
+  background: url('assets/images/logo.png');
+}
+
+/* WRONG: logo.png don't have to be relative to the source file */
+body {
+  background: url('../www/assets/images/logo.png');
+}
+```
 
 <br>
 
 ### Kirby
 _Kirby-webpack try to be as least intrusive as possible. That said, there is some minor modifications to your ordinary Kirby config you need to be aware of :_
 
+#### kirby-webpack plugin
+There is a special kirby-webpack kirby plugin containing all required helper to make kirby-webpack working correctly. Don't remove it!
+
 #### CSS livereload 
 
-> Use **`liveCSS()`** instead of the usual `css()` to enable the CSS livereload.
+> Use **`liveCSS()`** instead of the usual `css()` to enable the CSS hot-reloading.<br>
+Continue to use css() for simple vendor CSS files which doesn't require hot-reloading.
 
-```php
-<?php 
-  // echo css('assets/bundle.css') 
-  echo liveCSS('assets/bundle.css') 
+```php  
+<?php
+  // echo css('assets/bundle.css')
+  echo liveCSS('assets/bundle.css')
 ?>
 ```
 
@@ -155,17 +186,16 @@ This file is **git ignored**, and required in [`config.php`](www/site/config/con
 <sup>Thanks to [Malvese](https://forum.getkirby.com/t/license-in-config-php-and-deployment/1132) for the idea.</sup>
 
 #### Changes to `config.localhost.php`
-> Those two lines are required in [`config.localhost.php`](www/site/config/config.localhost.php) for the dev server to work.
+> That line is required in [`config.localhost.php`](www/site/config/config.localhost.php) for the dev server to work.
 
 ```php
-c::set('webpack', !!($_SERVER['HTTP_X_FORWARDED_FOR'] == 'webpack'));
 c::set('url', 'http://' . $_SERVER['HTTP_HOST']);
 ```
 
 #### Bonus: know if Webpack is being used
 ```php
-if (c::get('webpack', false)) {
-  echo 'Webpack is enabled.';
+if (isWebpack()) {
+  echo 'Your are viewing the site through the dev server.';
 }
 ```
 
