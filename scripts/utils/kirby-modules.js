@@ -1,5 +1,5 @@
 const path = require('path')
-const { paths } = require('../../webpack.config.common')
+const { paths } = require('../../main.config.js')
 const kirbyConfig = require('../../kirby.config.json')
 
 module.exports = (kirbyModules => {

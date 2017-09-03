@@ -1,5 +1,5 @@
 const fs = require('fs-extra')
-const path = require('path')
+
 const kirbyModules = require('./utils/kirby-modules')
 const updateModule = require('./utils/kirby-update-module')
 

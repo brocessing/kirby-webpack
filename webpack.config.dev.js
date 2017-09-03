@@ -1,17 +1,14 @@
-const path = require('path')
 const merge = require('webpack-merge')
 const webpack = require('webpack')
 const common = require('./webpack.config.common')
-const paths = common.paths
+const user = require('./scripts/utils/format-config')(require('./main.config.js'))
 
 const devConfig = {
-  entry: {
-    'bundle': [path.join(paths.src, 'entry.js'), path.join(paths.src, 'app.scss'), 'webpack-hot-middleware/client']
-  },
+  entry: user.entries,
   module: {
     rules: [
       {
-        test: /\.(scss)$/,
+        test: user.css.sourceRegexExt,
         use: [
           {
             loader: 'style-loader',

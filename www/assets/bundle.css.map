@@ -1,1 +1,1 @@
-{"version":3,"sources":["webpack:///./src/app.scss"],"names":[],"mappings":"AAAA,KACE,WAAY","file":"bundle.css","sourcesContent":["body {\n  margin: 50px;\n}\n\n\n\n// WEBPACK FOOTER //\n// ./src/app.scss"],"sourceRoot":""}
+{"version":3,"sources":["webpack:///./src/index.less","webpack:///./index.less"],"names":[],"mappings":"AAAA;EACE;CCCD","file":"assets/bundle.css","sourcesContent":["body {\n  margin: 50px;\n}\n\n\n\n// WEBPACK FOOTER //\n// ./src/index.less","body {\n  margin: 50px;\n}\n\n\n\n// WEBPACK FOOTER //\n// ./index.less"],"sourceRoot":""}

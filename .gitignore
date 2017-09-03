@@ -9,6 +9,9 @@ www/assets/avatars/*
 !www/assets/avatars/index.html
 www/site/config/license.php
 
+### PHP ###
+php-error.log*
+
 ### Workflow & Editor ###
 .vscode
 .eslintcache

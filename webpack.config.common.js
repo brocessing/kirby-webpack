@@ -1,31 +1,4 @@
-const path = require('path')
-const appEnv = process.env.APP_ENV || process.env.NODE_ENV || 'development'
-
-const basePaths = {
-  development: '/',
-  ghpages: '/',
-  preprod: '/',
-  production: '/'
-}
-
-const paths = {
-  src: path.join(__dirname, 'src'),
-  public: path.join(__dirname, 'www'),
-
-  kirby: {
-    core: path.join(__dirname, 'www', 'kirby'),
-    panel: path.join(__dirname, 'www', 'panel'),
-    assets: path.join(__dirname, 'www', 'assets'),
-    cache: path.join(__dirname, 'www', 'site', 'cache'),
-    fields: path.join(__dirname, 'www', 'site', 'fields'),
-    tags: path.join(__dirname, 'www', 'site', 'tags'),
-    plugins: path.join(__dirname, 'www', 'site', 'plugins'),
-    widgets: path.join(__dirname, 'www', 'site', 'widgets'),
-  },
-
-  build: path.join(__dirname, 'www'),
-  base: basePaths[appEnv] || basePaths.development
-}
+const user = require('./scripts/utils/format-config')(require('./main.config.js'))
 
 const CSSLoaders = [
   {
@@ -33,7 +6,7 @@ const CSSLoaders = [
     options: {
       url: false,
       sourceMap: true,
-      minimize: !!(appEnv === 'production')
+      minimize: !!(user.appEnv === 'production')
     }
   },
   {
@@ -41,20 +14,25 @@ const CSSLoaders = [
     options: {
       sourceMap: true
     }
-  },
-  {
-    loader: 'sass-loader',
-    options: {
-      sourceMap: true
-    }
   }
 ]
 
+if (user.css.preprocessorLoader) {
+  CSSLoaders.push(
+    {
+      loader: user.css.preprocessorLoader,
+      options: {
+        sourceMap: true
+      }
+    }
+  )
+}
+
 const webpack = {
   output: {
-    publicPath: paths.base + 'assets',
-    path: paths.kirby.assets,
-    filename: '[name].js',
+    publicPath: user.paths.basepath,
+    path: user.paths.build,
+    filename: '[name]',
     chunkFilename: '[name].[id].chunk.js'
   },
   resolve: {
@@ -65,11 +43,11 @@ const webpack = {
       {
         test: /\.(js)$/,
         loader: 'babel-loader',
-        include: paths.src
+        include: user.paths.src
       }
     ]
   },
   plugins: []
 }
 
-module.exports = { paths, CSSLoaders, webpack }
+module.exports = { CSSLoaders, webpack, user }

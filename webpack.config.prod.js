@@ -1,18 +1,15 @@
-const path = require('path')
 const webpack = require('webpack')
 const merge = require('webpack-merge')
 const ExtractTextPlugin = require('extract-text-webpack-plugin')
 const common = require('./webpack.config.common')
-const paths = common.paths
+const user = require('./scripts/utils/format-config')(require('./main.config.js'))
 
 const prodConfig = {
-  entry: {
-    'bundle': [path.join(paths.src, 'entry.js'), path.join(paths.src, 'app.scss')]
-  },
+  entry: user.entries,
   module: {
     rules: [
       {
-        test: /\.(scss)$/,
+        test: user.css.sourceRegexExt,
         use: ExtractTextPlugin.extract({
           fallback: 'style-loader',
           use: common.CSSLoaders
@@ -22,7 +19,7 @@ const prodConfig = {
   },
   plugins: [
     // Extract all css into one file
-    new ExtractTextPlugin({ filename: '[name].css', allChunks: true }),
+    new ExtractTextPlugin({ filename: '[name]', allChunks: true }),
 
     // Minification and size optimization
     new webpack.DefinePlugin({ 'process.env': { 'NODE_ENV': '"production"' } }),

@@ -1,5 +1,3 @@
-const path = require('path')
-const { paths } = require('../webpack.config.common')
 const { modules } = require('../kirby.config.json')
 
 const sh = require('kool-shell')()

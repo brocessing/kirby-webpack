@@ -2,7 +2,7 @@ const path = require('path')
 const updateModule = require('./utils/kirby-update-module')
 const registerModule = require('./utils/kirby-register-module')
 
-const { paths } = require('../webpack.config.common')
+const { paths } = require('../main.config.js')
 const ignore = require('./utils/update-gitignore')
 const sh = require('kool-shell')()
   .use(require('kool-shell/plugins/log'), {colors: true})
@@ -10,7 +10,7 @@ const sh = require('kool-shell')()
   .use(require('kool-shell/plugins/spinner'))
 
 function askURL () {
-  const REGEX = /^(git@([a-z0-9._~/?#\[\]@!$&'()*+,;=`-]+):|https?:\/\/([a-z0-9._~?#\[\]@!$&'()*+,;=`-]+)\/)([a-z0-9._~:/?#\[\]@!$&'()*+,;=`-]+)\.git$/i
+  const REGEX = /^(git@([a-z0-9._~/?#\[\]@!$&'()*+,;=`-]+):|https?:\/\/([a-z0-9._~?#\[\]@!$&'()*+,;=`-]+)\/)([a-z0-9._~:/?#\[\]@!$&'()*+,;=`-]+)\.git$/i //eslint-disable-line
   return sh.input('Git URL:', {
     onSubmit: answer => {
       let url = (answer + '').trim()
@@ -33,7 +33,7 @@ function askType () {
   const modulePaths = {
     fields: paths.kirby.fields,
     plugins: paths.kirby.plugins,
-    tags: paths.kirby.tags
+    tags: paths.kirby.tags,
     widgets: paths.kirby.widgets
   }
 

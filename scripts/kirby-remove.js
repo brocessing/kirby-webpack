@@ -1,5 +1,4 @@
 const fs = require('fs-extra')
-const path = require('path')
 
 const ignore = require('./utils/update-gitignore')
 const unregister = require('./utils/kirby-unregister-module')
@@ -23,14 +22,13 @@ if (kirbyModules.length === 0) {
 sh.select('Which module to remove ?', removableModules)
   .then(modules => Promise.all(modules.map(module => new Promise((resolve, reject) => {
     fs.remove(module.dest)
-        .then(() => {
-          sh.info(sh.colors.red(' ↪ removed ') + module.name)
-          return unregister(module)
-        })
-        .then(() => resolve())
-        .catch(err => reject(err))
-    })
-  )))
+      .then(() => {
+        sh.info(sh.colors.red(' ↪ removed ') + module.name)
+        return unregister(module)
+      })
+      .then(() => resolve())
+      .catch(err => reject(err))
+  }))))
   .then(() => ignore(kirbyModules.filter(module => !module.selected).map(module => module.dest)))
   .then(() => sh.log())
   .catch(err => sh.error(err))
