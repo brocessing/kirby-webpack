@@ -22,6 +22,7 @@
 - [Project structure](#project-structure)
 - [Working with Kirby-webpack](#working-with-kirby-webpack)
   * [Webpack](#webpack)
+  * [Kirby](#kirby)
   * [Kirby Package Manager](#kirby-package-manager)
 - [List of Kirby-webpack commands](#list-of-kirby-webpack-commands)
 - [Want a custom starter kit ?](#want-a-custom-starter-kit-)
@@ -125,6 +126,48 @@ The right way to use Kirby-webpack is to **code all your javascript and LESS (or
 That means that [`www/`](www) is the only folder you have to deploy to your server.
 
 >Note: you can totally use Kirby as usual by creating your `js` and/or `css` files into [`www/assets/`](www/assets), but you will not benefit from Webpack compilation. You will however still have livereload capability.
+
+<br>
+
+### Kirby
+_Kirby-webpack try to be as least intrusive as possible. That said, there is some minor modifications to your ordinary Kirby config you need to be aware of :_
+
+#### CSS livereload 
+
+> Use **`liveCSS()`** instead of the usual `css()` to enable the CSS livereload.
+
+```php
+<?php 
+  // echo css('assets/bundle.css') 
+  echo liveCSS('assets/bundle.css') 
+?>
+```
+
+#### License file
+Kirby's license key registration has been moved into its own [`config/license.php`](www/site/config) file.  
+This file is **git ignored**, and required in [`config.php`](www/site/config/config.php). That way you can enter a license key without fear to go public when using Git.
+
+> In a multi-environement setup, require [`license.php`](www/site/config/license.php) in all revelant config files.
+
+```php
+@include __DIR__ . DS . 'license.php';
+```
+<sup>Thanks to [Malvese](https://forum.getkirby.com/t/license-in-config-php-and-deployment/1132) for the idea.</sup>
+
+#### Changes to `config.localhost.php`
+> Those two lines are required in [`config.localhost.php`](www/site/config/config.localhost.php) for the dev server to work.
+
+```php
+c::set('webpack', !!($_SERVER['HTTP_X_FORWARDED_FOR'] == 'webpack'));
+c::set('url', 'http://' . $_SERVER['HTTP_HOST']);
+```
+
+#### Bonus: know if Webpack is being used
+```php
+if (c::get('webpack', false)) {
+  echo 'Webpack is enabled.';
+}
+```
 
 <br>
 
