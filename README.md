@@ -25,6 +25,8 @@
   * [Kirby Package Manager](#kirby-package-manager)
 - [List of Kirby-webpack commands](#list-of-kirby-webpack-commands)
 - [Want a custom starter kit ?](#want-a-custom-starter-kit-)
+  * [`main.config.js`](#mainconfigjs)
+  * [`kirby.config.json`](#kirbyconfigjson)
 - [Contribute](#contribute)
 - [License](#license)
 
@@ -34,21 +36,23 @@
 
 > Kirby is a file-based CMS. Easy to setup. Easy to use. Flexible as hell.
 
-But it lacks the frontend tools ; especially if you're more a front than a back developper. Kirby-webpack wraps PHP and [Kirby CMS](http://getkirby.com) inside a full pre-configured [npm](npmjs.com) + [Webpack](https://webpack.github.io/) environnement.
+But it lacks the frontend tools ; especially if you're more a front than a back developper.  
+Kirby-webpack wraps PHP and [Kirby CMS](http://getkirby.com) inside a full pre-configured [npm](npmjs.com) + [Webpack](https://webpack.github.io/) environnement.
 
 <br><br>
 
 ## Features
 
 - No more trouble with git submodules: introducing our own **Kirby Package Manager**
-- [Browsersync](https://browsersync.io/) dev server with livereload on all your website files
+- [Browsersync](https://browsersync.io/) dev server with **livereload** on all your website files
 - **Built-in PHP Server** wrapped in the dev server - we handle PHP for you
 - [Webpack 3](https://webpack.github.io/) with [HMR](https://webpack.github.io/docs/hot-module-replacement.html) 
-- [SASS](http://sass-lang.com/) + [PostCSS](http://postcss.org/)  + [Autoprefixer](https://github.com/postcss/autoprefixer)
-- `ES6` transpilation with [babel](https://babeljs.io/) + [babel-preset-env](https://github.com/babel/babel-preset-env)
+- [LESS](http://lesscss.org/) + [PostCSS](http://postcss.org/)  + [Autoprefixer](https://github.com/postcss/autoprefixer) 
+- Option to **automatically switch from [LESS](http://lesscss.org/) to [SASS](http://sass-lang.com/) or [Stylus](http://stylus-lang.com/)**
+- **`ES6`** transpilation with [babel](https://babeljs.io/) + [babel-preset-env](https://github.com/babel/babel-preset-env)
 - Linting with [ESLint](https://eslint.org/) and the [Standard](http://standardjs.com/) presets
 - Generate a `stats.json` file from your bundled js to optimize your dependency tree
-- Multiple config files to make your own workflow from the starterkit
+- **Multiple config files** to make your own workflow from the starterkit
 
 <br><br>
 
@@ -85,6 +89,7 @@ $ unboil          # use it on your brand new kirby-webpack installation
 
 ## Project structure
 
+
 ```sh
 kirby-webpack/
 │
@@ -104,6 +109,7 @@ kirby-webpack/
 │   └── ...
 │
 ├── kirby.config.json
+├── main.config.js
 └── package.json
 ```
 
@@ -114,55 +120,100 @@ kirby-webpack/
 ### Webpack
 Using Webpack means that you can now have source files and dependencies for all your `JS` and `CSS` assets.
 
-The right way to use Kirby-webpack is to **code all your javascript and sass in the `src` folder**. On `npm run build`, Webpack will analyze, compile and bundle all your sources into the main `www` Kirby folder.
+The right way to use Kirby-webpack is to **code all your javascript and LESS (or Sass, or Stylus) files in the `src` folder**. On `npm run build`, Webpack will analyze, compile and bundle all your sources into the main [`www/`](www) Kirby folder.
 
-That means that the `www` is the only folder you have to deploy to your server.
+That means that [`www/`](www) is the only folder you have to deploy to your server.
 
->Note: you can totally use Kirby as usual by creating your `js` and/or `css` files into `www/assets/`, but you will not benefit from Webpack compilation. You will however still have livereload capability.
+>Note: you can totally use Kirby as usual by creating your `js` and/or `css` files into [`www/assets/`](www/assets), but you will not benefit from Webpack compilation. You will however still have livereload capability.
+
+<br>
 
 ### Kirby Package Manager
-Keeping a Kirby starterkit up-to-date can quickly become tedious, especially if you have a lot of plugins. Working with git submodules may seem like a good idea, but usually is not, as it tends to make your git history harder to keep clean.
+Keeping a Kirby starterkit up-to-date can quickly become tedious, especially if you have a lot of plugins. Working with git submodules may seem like a good idea, but is usually not, as it tends to make your git history harder to keep clean.
 
-Rather than using [Kirby CLI](https://github.com/getkirby/cli/), Kirby-Webpack comes with its own _npm flavored_ Kirby Package Manager, allowing for a cleaner way to work both in the Node and in the Git environment.
+Rather than using [Kirby CLI](https://github.com/getkirby/cli/), Kirby-Webpack comes with its own _npm flavored_ **Kirby Package Manager**, allowing for a cleaner way to work both in the NodeJS and in the Git environment.
+
+**Kirby Package Manager** works by keeping a list of all installed Kirby plugins in [`kirby.config.json`](kirby.config.json). Run `npm run kirby:add` to download and register a plugin, and `npm run kirby:remove` to remove and unregister one.  
+
+The registered plugins will be added to [`.gitignore`](.gitignore), and updated each time you'll run `npm install` or `npm run kirby:update`.
+
+> Note: you can also manually edit [`kirby.config.json`](kirby.config.json) as described in "**[Want a custom starter kit ?](#kirbyconfigjson)**".  
+
+<p></p>
+
+> Note: you can still manually download and install plugin the old way, but **Kirby Package Manager** won't be able to track them.
 
 <br><br>
 
 ## List of Kirby-webpack commands
 
-#### `npm install`
+### Main
+- `npm install`
 >Install all npm dependencies, then install all Kirby-webpack dependencies.
 
-#### `npm run start`
+- `npm run start`
 >Start the PHP dev server with livereload on all your Kirby-webpack files.
 
-#### `npm run build`
->Build your `js` and `scss` source files, and bundle them in the `www` folder.
+- `npm run build`
+>Build your `js` and `scss` source files, and bundle them in the [`www/`](www) folder.
 
-#### `npm run kirby:update`
->Update Kirby core, panel and all the plugins registered in `kirby.config.json`.
+### Kirby Package Manager
 
-#### `npm run kirby:add`
+- `npm run kirby:update`
+> Update Kirby core, panel and all the plugins registered in [`kirby.config.json`](kirby.config.json).
+
+- `npm run kirby:ls`
+>List all the Kirby modules registered in [`kirby.config.json`](kirby.config.json).
+
+- `npm run kirby:add`
 >Run an interactive shell that allows you to add new Kirby plugin to your Kirby-webpack setup.
 
-#### `npm run kirby:remove`
->Run an interactive shell that allows you to remove a plugin/field/widget from your Kirbby-webpack setup.
+- `npm run kirby:remove`
+>Run an interactive shell that allows you to remove a Kirby plugin from your Kirbby-webpack setup.
 
-#### `npm run kirby:ls`
->List all the Kirby modules registered in `kirby.config.json`.
-
-#### `npm run stats`
+### Additional tools
+- `npm run stats`
 >Generate a `stats.json` of your bundled `js` to analyze your dependency tree.
 
-#### `npm run lint`
+- `npm run lint`
 >Lint your `js` files using [ESLint](https://eslint.org/) and the [Standard](http://standardjs.com/) presets.
 
 <br><br>
 
 ## Want a custom starter kit ?
 
-**Fork** this repository and build your own starter kit inside `www/`. 
+**Fork** this repository and build your own starter kit inside [`www/`](www).  
+Edit [`main.config.js`](main.config.js) and [`kirby.config.json`](kirby.config.json) to customize your Kirby-webpack configuration.
 
-Use `kirby.config.js` to register your favorite Kirby plugins, and Kirby-webpack will automagically install and update them for you.
+<br>
+
+### `main.config.js`
+Edit [`main.config.js`](main.config.js) to define your favorite CSS preprocessor, dev server options, and to customize your project folder architecture.  
+> Note: Kirby-Webpack will automatically update your npm packages to match the CSS preprocessor you defined in [`main.config.js`](main.config.js).
+
+<br>
+
+### `kirby.config.json`
+
+Edit [`kirby.config.json`](kirby.config.json) to register your favorite Kirby plugins, and Kirby-webpack will automagically install and update them for you.  
+
+Alternatively, use `npm run kirby:add` to add plugins via an interactive shell.
+
+```json
+{
+  "modules": {
+    "core": "https://github.com/getkirby/kirby.git",
+    "panel": "https://github.com/getkirby/panel.git",
+    "fields": {
+      "markdown": "https://github.com/JonasDoebertin/kirby-visual-markdown"
+    },
+    "plugins": {},
+    "tags": {},
+    "widgets": {}
+  }
+}
+```
+> Note: the left-hand value corresponds to the name of the plugin, not the name of its git repository. For instance, [kirby-visual-markdown](https://github.com/JonasDoebertin/kirby-visual-markdown) is named `markdown`, and needs to be in a folder named `markdown`.
 
 <br><br>
 
