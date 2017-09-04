@@ -159,7 +159,7 @@ There is a special [`kirby-webpack`](www/site/plugins/kirby-webpack) Kirby plugi
 #### CSS livereload 
 
 > Use **`liveCSS()`** instead of the usual `css()` to enable the CSS hot-reloading.  
-Continue to use `css() for simple vendor CSS files which doesn't require hot-reloading.
+Continue to use `css()` for simple vendor CSS files which don't require hot-reloading.
 
 ```php  
 <?php
@@ -198,7 +198,7 @@ if (isWebpack()) {
 ### Kirby Package Manager
 Keeping a Kirby starterkit up-to-date can quickly become tedious, especially if you have a lot of plugins. Working with git submodules may seem like a good idea, but is usually not, as it tends to make your git history harder to keep clean.
 
-Rather than using [Kirby CLI](https://github.com/getkirby/cli/), Kirby-Webpack comes with its own _npm flavored_ **Kirby Package Manager**, allowing for a cleaner way to work both in the NodeJS and in the Git environment.
+Rather than using [Kirby CLI](https://github.com/getkirby/cli/), Kirby-webpack comes with its own _npm flavored_ **Kirby Package Manager**, allowing for a cleaner way to work both in the NodeJS and in the Git environment.
 
 **Kirby Package Manager** works by keeping a list of all installed Kirby plugins in [`kirby.config.json`](kirby.config.json). Run `npm run kirby:add` to download and register a plugin, and `npm run kirby:remove` to remove and unregister one.  
 
@@ -222,7 +222,7 @@ The registered plugins will be added to [`.gitignore`](.gitignore), and updated 
 >Start the PHP dev server with livereload on all your Kirby-webpack files.
 
 - `npm run build`
->Build your `js` and `scss` source files, and bundle them in the [`www/`](www) folder.
+>Build your `js` and `scss`/`less`/`styl` source files, and bundle them in the [`www/`](www) folder.
 
 ### Kirby Package Manager
 
@@ -236,7 +236,7 @@ The registered plugins will be added to [`.gitignore`](.gitignore), and updated 
 >Run an interactive shell that allows you to add new Kirby plugin to your Kirby-webpack setup.
 
 - `npm run kirby:remove`
->Run an interactive shell that allows you to remove a Kirby plugin from your Kirbby-webpack setup.
+>Run an interactive shell that allows you to remove a Kirby plugin from your Kirby-webpack setup.
 
 ### Additional tools
 - `npm run stats`
@@ -256,7 +256,7 @@ Edit [`main.config.js`](main.config.js) and [`kirby.config.json`](kirby.config.j
 
 ### `main.config.js`
 Edit [`main.config.js`](main.config.js) to define your favorite CSS preprocessor, dev server options, and to customize your project folder architecture.  
-> Note: Kirby-Webpack will automatically update your npm packages to match the CSS preprocessor you defined in [`main.config.js`](main.config.js).
+> Note: Kirby-webpack will automatically update your npm packages to match the CSS preprocessor you defined in [`main.config.js`](main.config.js).
 
 <br>
 
@@ -294,7 +294,7 @@ Feel free to submit any issue or request.
 2. **Clone** the project to your own machine
 3. **Commit** changes to your own branch
 4. **Push** your work back up to your fork
-5. Submit a **Pull request** so that we I review your changes
+5. Submit a **Pull request** so that we review your changes
 
 <sup>Be sure to merge the latest from `upstream` before making a pull request.</sup>
 
