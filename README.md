@@ -161,10 +161,10 @@ There is a special [`kirby-webpack`](www/site/plugins/kirby-webpack) Kirby plugi
 > Use **`liveCSS()`** instead of the usual `css()` to enable the CSS hot-reloading.  
 Continue to use `css()` for simple vendor CSS files which don't require hot-reloading.
 
-```php  
+```diff  
 <?php
-  // echo css('assets/bundle.css')
-  echo liveCSS('assets/bundle.css')
+-   echo css('assets/bundle.css')
++   echo liveCSS('assets/bundle.css')
 ?>
 ```
 
