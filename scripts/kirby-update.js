@@ -3,7 +3,7 @@ const fs = require('fs-extra')
 const kirbyModules = require('./utils/kirby-modules')
 const updateModule = require('./utils/kirby-update-module')
 
-const { paths } = require('../webpack.config.common')
+const { paths } = require('../main.config')
 const ignore = require('./utils/update-gitignore')
 const sh = require('kool-shell')()
   .use(require('kool-shell/plugins/log'), {colors: true})

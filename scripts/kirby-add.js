@@ -2,7 +2,7 @@ const path = require('path')
 const updateModule = require('./utils/kirby-update-module')
 const registerModule = require('./utils/kirby-register-module')
 
-const { paths } = require('../main.config.js')
+const { paths } = require('../main.config')
 const ignore = require('./utils/update-gitignore')
 const sh = require('kool-shell')()
   .use(require('kool-shell/plugins/log'), {colors: true})
