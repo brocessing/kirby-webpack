@@ -1,4 +1,6 @@
 ### Kirby ###
+# Comment the line below if you want git to handle your content
+www/content
 www/thumbs/*
 !www/thumbs/index.html
 www/site/cache/*
