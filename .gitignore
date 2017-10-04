@@ -1,6 +1,7 @@
 ### Kirby ###
-# Comment the line below if you want git to handle your content
-www/content
+# By default, git ignores all content from sub-pages folders
+# Comment the line below if you want git to handle all your content
+www/content/*/*/*
 www/thumbs/*
 !www/thumbs/index.html
 www/site/cache/*
