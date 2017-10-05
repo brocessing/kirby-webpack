@@ -31,12 +31,18 @@ const devServer = {
   // Port used by the dev server
   port: 8080,
 
+  // Use this option if you already have a local environment (like MAMP)
+  // e.g. proxy: website.dev
+  proxy: false,
+
   // The alias/path to the php binary. OSX has PHP available natively.
   // You have to edit this to have the devServer working on Windows.
+  // Use the proxy opt if you can't use / don't want to use a built-in php serv.
   phpBinary: 'php',
 
   // Set this to true to display PHP logs in your terminal
-  logPhpErrors: false
+  // /!\ does nothing if you use the `proxy` option
+  logPhpErrors: true
 }
 
 /**
@@ -52,6 +58,7 @@ const paths = {
   build: path.join(__dirname, 'www'),
 
   // public folder to deploy to your server
+  // if you use a proxy, this is often the document root of the server used
   www: path.join(__dirname, 'www'),
 
   // public baseUrl of your site, generally '/'.

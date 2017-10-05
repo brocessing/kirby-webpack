@@ -5,47 +5,74 @@ const webpack = require('webpack')
 const webpackConfig = require('../webpack.config.dev')
 const webpackDevMiddleware = require('webpack-dev-middleware')
 const webpackHotMiddleware = require('webpack-hot-middleware')
-const phpServerMiddleware = require('php-server-middleware')
+
+const hostRewriter = require('./utils/body-host-rewriter')
+const php = require('@pqml/node-php-server')
+
 const Tail = require('tail').Tail
 
 const user = require('../main.config.js')
+
 const sh = require('kool-shell')()
   .use(require('kool-shell/plugins/log'))
   .use(require('kool-shell/plugins/exit'))
 
 const LOGPATH = path.join(process.cwd(), 'php-error.log')
 const bs = browserSync.create()
+const useProxy = !!user.devServer.proxy
 
 let isWebpackInit, isPhpInit
 let compiler
-let hotMiddleware, devMiddleware, phpMiddleware
+let hotMiddleware, devMiddleware, proxyAddr, phpServer, rewriteHost
 
 phpInit()
 
 function phpInit () {
   sh.log()
-  sh.step(1, 3, 'Starting a php server...')
+
+  sh.step(1, 3, useProxy
+    ? 'PHP has to run from your proxy, ' + user.devServer.proxy
+    : 'Starting a php server...')
+
+  // if a proxy is set we don't need to create a built-in php server
+  if (useProxy) {
+    proxyAddr = user.devServer.proxy
+    rewriteHost = hostRewriter(proxyAddr)
+    isPhpInit = true
+    return webpackInit()
+  }
 
   let args = []
   if (user.devServer.logPhpErrors) {
     args = ['-d', 'error_log="' + LOGPATH + '"']
   }
 
-  phpMiddleware = phpServerMiddleware({
+  phpServer = php({
+    bin: user.devServer.phpBinary || 'php',
     host: 'localhost',
     root: user.paths.www,
-    headers: { 'X-Forwarded-For': 'webpack' },
-    verbose: false,
+    verbobse: false,
     promptBinary: true,
-    phpOpts: { args },
-    bin: user.devServer.phpBinary || 'php',
-    onStart: () => {
-      if (isPhpInit) return
-      sh.log('PHP Server started.')
-      isPhpInit = true
-      webpackInit()
-    }
+    args
   })
+
+  phpServer.on('start', ({host, port}) => {
+    if (isPhpInit) return
+    // php server can't be reach through localhost, we have to use [::1]
+    sh.log('PHP Server started on ' + host + ':' + port + '\n')
+
+    if (host === 'localhost') {
+      sh.warn('\nNode can\'t reach PHP built-in server through localhost.\nProxying [::1]:' + port + ' instead.')
+      host = '[::1]'
+    }
+
+    proxyAddr = host + ':' + port
+    rewriteHost = hostRewriter(host, port)
+    isPhpInit = true
+    webpackInit()
+  })
+
+  phpServer.start()
 }
 
 function webpackInit () {
@@ -77,15 +104,22 @@ function browserSyncInit () {
   sh.log()
   sh.step(3, 3, 'Starting the browser-sync server...')
 
-  const middlewares = [devMiddleware, hotMiddleware, phpMiddleware]
+  const middlewares = [devMiddleware, hotMiddleware]
 
   bs.init({
-    server: { baseDir: user.paths.www },
-    middleware: middlewares,
+    port: user.devServer.port || 8080,
+    proxy: {
+      target: proxyAddr,
+      middleware: middlewares,
+      proxyReq: [(proxyReq, req, res) => {
+        proxyReq.setHeader('X-Forwarded-For', 'webpack')
+        proxyReq.setHeader('X-Forwarded-Host', req.headers.host)
+        rewriteHost(res, req.headers.host)
+      }]
+    },
     open: false,
     reloadOnRestart: true,
     notify: false,
-    port: user.devServer.port || 8080,
     files: [path.join(user.paths.www, '**/*')],
     watchOptions: {
       ignoreInitial: true,
