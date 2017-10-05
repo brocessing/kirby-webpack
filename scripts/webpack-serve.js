@@ -145,7 +145,10 @@ function ready () {
 function logPhpError () {
   fs.ensureFile(LOGPATH)
     .then(() => {
-      const tail = new Tail(LOGPATH)
+      const tail = new Tail(LOGPATH, {
+        useWatchFile: true,
+        fsWatchOptions: { interval: 300 }
+      })
       tail.on('line', (data) => {
         data = data.toString('utf8').split(']')
         const date = sh.colors.gray(data.shift() + ']')
