@@ -51,7 +51,7 @@ function phpInit () {
     bin: user.devServer.phpBinary || 'php',
     host: 'localhost',
     root: user.paths.www,
-    verbobse: false,
+    verbose: false,
     promptBinary: true,
     args
   })
