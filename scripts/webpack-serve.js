@@ -42,9 +42,13 @@ function phpInit () {
     return webpackInit()
   }
 
-  let args = []
+  let args = [
+    '-d', 'upload_max_filesize=100M',
+    '-d', 'post_max_size=500M'
+  ]
+
   if (user.devServer.logPhpErrors) {
-    args = ['-d', 'error_log="' + LOGPATH + '"']
+    args.push('-d', 'error_log="' + LOGPATH + '"')
   }
 
   phpServer = php({
