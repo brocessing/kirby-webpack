@@ -44,7 +44,8 @@ function phpInit () {
 
   let args = [
     '-d', 'upload_max_filesize=100M',
-    '-d', 'post_max_size=500M'
+    '-d', 'post_max_size=500M',
+    '-d', 'short_open_tag=On'
   ]
 
   if (user.devServer.logPhpErrors) {
