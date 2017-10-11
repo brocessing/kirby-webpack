@@ -6,7 +6,6 @@ const webpackConfig = require('../webpack.config.dev')
 const webpackDevMiddleware = require('webpack-dev-middleware')
 const webpackHotMiddleware = require('webpack-hot-middleware')
 
-const hostRewriter = require('./utils/body-host-rewriter')
 const php = require('@pqml/node-php-server')
 
 const Tail = require('tail').Tail
@@ -23,7 +22,7 @@ const useProxy = !!user.devServer.proxy
 
 let isWebpackInit, isPhpInit
 let compiler
-let hotMiddleware, devMiddleware, proxyAddr, phpServer, rewriteHost
+let hotMiddleware, devMiddleware, proxyAddr, phpServer
 
 phpInit()
 
@@ -37,7 +36,6 @@ function phpInit () {
   // if a proxy is set we don't need to create a built-in php server
   if (useProxy) {
     proxyAddr = user.devServer.proxy
-    rewriteHost = hostRewriter(proxyAddr)
     isPhpInit = true
     return webpackInit()
   }
@@ -72,7 +70,6 @@ function phpInit () {
     }
 
     proxyAddr = host + ':' + port
-    rewriteHost = hostRewriter(host, port)
     isPhpInit = true
     webpackInit()
   })
@@ -119,7 +116,6 @@ function browserSyncInit () {
       proxyReq: [(proxyReq, req, res) => {
         proxyReq.setHeader('X-Forwarded-For', 'webpack')
         proxyReq.setHeader('X-Forwarded-Host', req.headers.host)
-        rewriteHost(res, req.headers.host)
       }]
     },
     open: false,
