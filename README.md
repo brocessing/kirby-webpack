@@ -6,10 +6,10 @@
 <h3 align="center">A kirby starter-kit with modern frontend tools</h3>
 
 <div align="center">
+  <!-- Version -->
+  <a href="https://github.com/brocessing/kirby-webpack/releases"><img src="https://img.shields.io/badge/version-0.6.0-green.svg?style=flat-square" alt="Version"/></a>
   <!-- License -->
-  <a href="https://raw.githubusercontent.com/brocessing/kirby-webpack/master/LICENSE">
-    <img src="https://img.shields.io/badge/license-MIT-blue.svg?style=flat-square" alt="License" />
-  </a>
+  <a href="https://raw.githubusercontent.com/brocessing/kirby-webpack/master/LICENSE"><img src="https://img.shields.io/badge/license-MIT-blue.svg?style=flat-square" alt="License" /></a>
 </div>
 
 <br><br><br><br>
