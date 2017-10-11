@@ -180,10 +180,14 @@ This file is **git ignored**, and required in [`config.php`](www/site/config/con
 <sup>Thanks to [Malvese](https://forum.getkirby.com/t/license-in-config-php-and-deployment/1132) for the idea.</sup>
 
 #### Changes to `config.localhost.php`
-> That line is required in [`config.localhost.php`](www/site/config/config.localhost.php) for the dev server to work.
+> These lines are required in [`config.localhost.php`](www/site/config/config.localhost.php) for the dev server to work.
+
+> If you configure kirby-webpack to work with a proxy and a vhost, you will have to rename [`config.localhost.php`](www/site/config/config.localhost.php) accordingly to the virtual-host you use.
 
 ```php
-c::set('url', 'http://' . $_SERVER['HTTP_HOST']);
+  if (isset($_SERVER['HTTP_X_FORWARDED_FOR']) && $_SERVER['HTTP_X_FORWARDED_FOR'] === 'webpack') {
+    c::set('url', '//' . $_SERVER['HTTP_X_FORWARDED_HOST']);
+  }
 ```
 
 #### Bonus: know if Webpack is being used

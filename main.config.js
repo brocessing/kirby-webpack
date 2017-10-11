@@ -33,6 +33,7 @@ const devServer = {
 
   // Use this option if you already have a local environment (like MAMP)
   // e.g. proxy: website.dev
+  // don't forget to rename config.localhost.php if you use a vhost
   proxy: false,
 
   // The alias/path to the php binary. OSX has PHP available natively.
