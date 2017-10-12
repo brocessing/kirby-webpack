@@ -1,3 +1,4 @@
+const path = require('path')
 const webpack = require('webpack')
 const merge = require('webpack-merge')
 const ExtractTextPlugin = require('extract-text-webpack-plugin')
@@ -19,7 +20,18 @@ const prodConfig = {
   },
   plugins: [
     // Extract all css into one file
-    new ExtractTextPlugin({ filename: '[name]', allChunks: true }),
+    new ExtractTextPlugin({
+      filename: (getPath) => {
+        const ext = path.extname(getPath('[name]'))
+        // If you import css from js entry files, these lines avoid to
+        // override the js files with the extract-text-plugin output.
+        // Instead, replace the bundle filepath extension by .css
+        return (ext === '.css')
+          ? getPath('[name]')
+          : getPath('[name]').slice(0, -ext.length) + '.css'
+      },
+      allChunks: true
+    }),
 
     // Minification and size optimization
     new webpack.DefinePlugin({ 'process.env': { 'NODE_ENV': '"production"' } }),
