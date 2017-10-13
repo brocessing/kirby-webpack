@@ -24,7 +24,7 @@ function formatConfig (config) {
     const dist = config.entries[k]
     if (!nEntries[dist]) {
       nEntries[dist] = (config.appEnv === 'development')
-        ? [src, 'webpack-hot-middleware/client']
+        ? [src, 'webpack-hot-middleware/client?reload=true']
         : src
     } else if (Array.isArray(nEntries[dist])) {
       nEntries[dist].unshift(src)
