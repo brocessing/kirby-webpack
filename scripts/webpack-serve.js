@@ -108,6 +108,19 @@ function browserSyncInit () {
 
   const middlewares = [devMiddleware, hotMiddleware]
 
+  // add a custom event for change in the www/content folder
+  // to enable livereload on the site but disable it on panel to avoid reload
+  // when editing the content.
+  bs.use({
+    plugin () {},
+    hooks: {
+      'client:js': fs.readFileSync(
+        path.join(__dirname, 'utils', 'browsersync-update-content.js'),
+        'utf-8'
+      )
+    }
+  })
+
   bs.init({
     port: user.devServer.port || 8080,
     proxy: {
@@ -132,7 +145,14 @@ function browserSyncInit () {
         path.join(user.paths.www, 'thumbs', '**/*')
       ]
     }
-  }, ready)
+  }, (error, instance) => {
+    if (error) throw error
+    // custom event for change in the www/content folder
+    bs.watch(path.join(user.paths.www, 'content', '**/*')).on('change', (file) => {
+      instance.io.sockets.emit('kirby:contentupdate', { file: file })
+    })
+    ready()
+  })
 }
 
 function ready () {
