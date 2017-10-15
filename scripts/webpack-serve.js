@@ -164,7 +164,9 @@ function ready () {
 }
 
 function logPhpError () {
-  fs.ensureFile(LOGPATH)
+  Promise.resolve()
+    .then(() => fs.remove(LOGPATH))
+    .then(() => fs.ensureFile(LOGPATH))
     .then(() => {
       const tail = new Tail(LOGPATH, {
         useWatchFile: true,
