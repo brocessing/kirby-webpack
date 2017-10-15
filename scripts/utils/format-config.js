@@ -1,4 +1,6 @@
 const path = require('path')
+const sh = require('kool-shell')()
+  .use(require('kool-shell/plugins/log'))
 
 const PREPROC_LOADER = {
   less: 'less-loader',
@@ -19,9 +21,24 @@ function formatConfig (config) {
 
   // format entries for webpack
   const nEntries = {}
+  const projectRoot = path.join(__dirname, '..', '..')
   for (let k in config.entries) {
-    const src = path.join(config.paths.src, k)
-    const dist = config.entries[k]
+    const relativeWww = path.relative(projectRoot, config.paths.www)
+    const src = path.join(projectRoot, k)
+    const dist = path.relative(relativeWww, config.entries[k])
+    if (
+      dist.length >= 2 &&
+      dist.substr(0, 2) === '..' &&
+      config.appEnv === 'development'
+    ) {
+      sh.log()
+      sh.warn(
+        '\n' + k + ' will not be bundled in development.\n' +
+        'Its destination is outside the public folder.'
+      )
+      continue
+    }
+
     if (!nEntries[dist]) {
       nEntries[dist] = (config.appEnv === 'development')
         ? [src, 'webpack-hot-middleware/client?reload=true']
