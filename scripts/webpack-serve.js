@@ -171,9 +171,11 @@ function logPhpError () {
         fsWatchOptions: { interval: 300 }
       })
       tail.on('line', (data) => {
-        data = data.toString('utf8').split(']')
-        const date = sh.colors.gray(data.shift() + ']')
-        data = date + data.join(']')
+        if (/^\[[a-zA-Z0-9: -]+\] .+/g.test(data)) {
+          data = data.toString('utf8').split(']')
+          const date = sh.colors.gray(data.shift() + ']')
+          data = date + data.join(']')
+        }
         sh.log(sh.colors.red('[PHP]') + data)
       })
       tail.on('error', err => sh.error(err))
