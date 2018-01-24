@@ -143,7 +143,7 @@ function browserSyncInit () {
         path.join(user.paths.www, 'site', 'cache', '**/*'),
         path.join(user.paths.www, 'site', 'accounts', '**/*'),
         path.join(user.paths.www, 'thumbs', '**/*')
-      ]
+      ].concat(user.devServer.ignored)
     }
   }, (error, instance) => {
     if (error) throw error

@@ -24,28 +24,6 @@ const css = {
 }
 
 /**
- * DEVSERVER CONFIGURATION
- */
-const devServer = {
-  // Port used by the dev server
-  port: 8080,
-
-  // Use this option if you already have a local environment (like MAMP)
-  // e.g. proxy: website.dev
-  // don't forget to rename config.localhost.php if you use a vhost
-  proxy: false,
-
-  // The alias/path to the php binary. OSX has PHP available natively.
-  // You have to edit this to have the devServer working on Windows.
-  // Use the proxy opt if you can't use / don't want to use a built-in php serv.
-  phpBinary: 'php',
-
-  // Set this to true to display PHP logs in your terminal
-  // /!\ does nothing if you use the `proxy` option
-  logPhpErrors: true
-}
-
-/**
  * FOLDER ARCHITECTURE
  * All paths used in kirby-webpack.
  * change them if you want to customize the folder architecture.
@@ -75,6 +53,33 @@ paths.kirby = {
   tags: path.join(paths.www, 'site', 'tags'),
   plugins: path.join(paths.www, 'site', 'plugins'),
   widgets: path.join(paths.www, 'site', 'widgets')
+}
+
+/**
+ * DEVSERVER CONFIGURATION
+ */
+const devServer = {
+  // Port used by the dev server
+  port: 8080,
+
+  // Use this option if you already have a local environment (like MAMP)
+  // e.g. proxy: website.dev
+  // don't forget to rename config.localhost.php if you use a vhost
+  proxy: false,
+
+  // The alias/path to the php binary. OSX has PHP available natively.
+  // You have to edit this to have the devServer working on Windows.
+  // Use the proxy opt if you can't use / don't want to use a built-in php serv.
+  phpBinary: 'php',
+
+  // Set this to true to display PHP logs in your terminal
+  // /!\ does nothing if you use the `proxy` option
+  logPhpErrors: true,
+
+  // Force browserSync to not watch some specific files/folder
+  ignored: [
+    path.join(paths.kirby.plugins, 'page-lock')
+  ]
 }
 
 // the appEnv variable can be used to create environment-specific behaviours
