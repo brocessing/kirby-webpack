@@ -1,4 +1,5 @@
 const fs = require('fs-extra')
+const path = require('path')
 
 const kirbyModules = require('./utils/kirby-modules')
 const updateModule = require('./utils/kirby-update-module')
@@ -34,6 +35,7 @@ Promise.resolve()
       return fs.emptyDir(paths.kirby.cache)
     } else sh.info('🕛  ' + kirbyTxt + 'Nothing to update.')
   })
+  .then(() => fs.ensureFile(path.join(paths.kirby.cache, '.gitkeep')))
   .then(() => kirbyModules.forEach(module => {
     switch (module.status) {
       case 'created':

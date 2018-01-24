@@ -1,7 +1,5 @@
-/*
-This is a client-side script.
-Don't use node.js methods nor advanced javascript features
-*/
+// This is a client-side script.
+// Don't use node.js methods nor advanced javascript features
 
 (function (bs) {
   if (inPanel()) {
