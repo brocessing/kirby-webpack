@@ -9,6 +9,9 @@ const sh = require('kool-shell')()
   .use(require('kool-shell/plugins/input'))
   .use(require('kool-shell/plugins/spinner'))
 
+const args = process.argv.slice(2)
+const shouldIgnore = !~args.indexOf('--no-ignore')
+
 function askURL () {
   const REGEX = /^(git@([a-z0-9._~/?#\[\]@!$&'()*+,;=`-]+):|https?:\/\/([a-z0-9._~?#\[\]@!$&'()*+,;=`-]+)\/)([a-z0-9._~:/?#\[\]@!$&'()*+,;=`-]+)\.git$/i //eslint-disable-line
   return sh.input('Git URL:', {
@@ -78,7 +81,7 @@ Promise.resolve()
     spinner.log('Registering...')
     return registerModule(kirbyModule, true)
   })
-  .then(() => ignore(require('./utils/kirby-modules').map(module => module.dest)))
+  .then(() => shouldIgnore && ignore(require('./utils/kirby-modules').map(module => module.dest)))
   .then(() => {
     spinner.pause()
     switch (kirbyModule.status) {
