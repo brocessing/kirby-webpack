@@ -16,6 +16,7 @@ www/site/config/license.php
 php-error.log*
 
 ### Workflow & Editor ###
+.idea
 .vscode
 .eslintcache
 .stylelintcache
