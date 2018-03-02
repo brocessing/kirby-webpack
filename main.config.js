@@ -67,6 +67,9 @@ const devServer = {
   // don't forget to rename config.localhost.php if you use a vhost
   proxy: false,
 
+  // Set to true if you need a devServer in https
+  https: false,
+
   // The alias/path to the php binary. OSX has PHP available natively.
   // You have to edit this to have the devServer working on Windows.
   // Use the proxy opt if you can't use / don't want to use a built-in php serv.

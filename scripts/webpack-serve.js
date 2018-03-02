@@ -121,7 +121,7 @@ function browserSyncInit () {
     }
   })
 
-  bs.init({
+  const BROWSERSYNC_OPTIONS = {
     port: user.devServer.port || 8080,
     proxy: {
       target: proxyAddr,
@@ -129,8 +129,10 @@ function browserSyncInit () {
       proxyReq: [(proxyReq, req, res) => {
         proxyReq.setHeader('X-Forwarded-For', 'webpack')
         proxyReq.setHeader('X-Forwarded-Host', req.headers.host)
+        proxyReq.setHeader('X-Forwarded-Proto', BROWSERSYNC_OPTIONS.https ? 'https' : 'http')
       }]
     },
+    https: !!user.devServer.https,
     open: false,
     reloadOnRestart: true,
     notify: false,
@@ -145,14 +147,18 @@ function browserSyncInit () {
         path.join(user.paths.www, 'thumbs', '**/*')
       ].concat(user.devServer.ignored)
     }
-  }, (error, instance) => {
-    if (error) throw error
-    // custom event for change in the www/content folder
-    bs.watch(path.join(user.paths.www, 'content', '**/*')).on('change', (file) => {
-      instance.io.sockets.emit('kirby:contentupdate', { file: file })
+  }
+
+  bs.init(
+    BROWSERSYNC_OPTIONS,
+    (error, instance) => {
+      if (error) throw error
+      // custom event for change in the www/content folder
+      bs.watch(path.join(user.paths.www, 'content', '**/*')).on('change', (file) => {
+        instance.io.sockets.emit('kirby:contentupdate', { file: file })
+      })
+      ready()
     })
-    ready()
-  })
 }
 
 function ready () {
