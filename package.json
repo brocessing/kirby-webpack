@@ -1,6 +1,6 @@
 {
   "name": "kirby-webpack",
-  "version": "0.7.4",
+  "version": "0.7.5",
   "description": "A kirby starter-kit with modern frontend tools",
   "main": "index.js",
   "scripts": {
