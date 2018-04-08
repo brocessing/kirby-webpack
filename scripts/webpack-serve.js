@@ -1,10 +1,13 @@
 const fs = require('fs-extra')
 const path = require('path')
+const os = require('os')
 const browserSync = require('browser-sync')
 const webpack = require('webpack')
 const webpackConfig = require('../webpack.config.dev')
 const webpackDevMiddleware = require('webpack-dev-middleware')
 const webpackHotMiddleware = require('webpack-hot-middleware')
+
+const isMacOS = (os.platform() === 'darwin')
 
 const php = require('@pqml/node-php-server')
 
@@ -52,7 +55,7 @@ function phpInit () {
 
   phpServer = php({
     bin: user.devServer.phpBinary || 'php',
-    host: 'localhost',
+    host: user.devServer.phpHost || 'localhost',
     root: user.paths.www,
     verbose: false,
     promptBinary: true,
@@ -64,8 +67,8 @@ function phpInit () {
     // php server can't be reach through localhost, we have to use [::1]
     sh.log('PHP Server started on ' + host + ':' + port + '\n')
 
-    if (host === 'localhost') {
-      sh.warn('\nNode can\'t reach PHP built-in server through localhost.\nProxying [::1]:' + port + ' instead.')
+    if (isMacOS && host === 'localhost') {
+      sh.warn('\nOn MacOS / OSX, Node can\'t reach PHP built-in server through localhost.\nProxying [::1]:' + port + ' instead.')
       host = '[::1]'
     }
 

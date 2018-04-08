@@ -1,4 +1,5 @@
 const user = require('./scripts/utils/format-config')(require('./main.config.js'))
+const { EnvironmentPlugin } = require('webpack')
 
 const CSSLoaders = [
   {
@@ -49,7 +50,9 @@ const webpack = {
       }
     ]
   },
-  plugins: []
+  plugins: [
+    new EnvironmentPlugin(['NODE_ENV'])
+  ]
 }
 
 module.exports = { CSSLoaders, webpack, user }

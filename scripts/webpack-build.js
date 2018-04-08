@@ -1,8 +1,11 @@
 const startTime = new Date()
 
+const fs = require('fs-extra')
+const path = require('path')
 const webpack = require('webpack')
 const webpackConfig = require('../webpack.config.prod')
 const ProgressBarPlugin = require('progress-bar-webpack-plugin')
+const user = require('./utils/format-config')(require('../main.config.js'))
 
 const sh = require('kool-shell')()
   .use(require('kool-shell/plugins/log'))
@@ -19,14 +22,15 @@ compiler.apply(
 )
 
 Promise.resolve()
+  .then(() => fs.remove(path.join(user.paths.kirby.assets, 'builds')))
   .then(() => sh.log('Running the webpack compiler...'))
   .then(
     () =>
       new Promise((resolve, reject) => {
         compiler.run((err, stats) => {
-          stats.compilation.modules.forEach((module => {
+          stats.compilation.modules.forEach(module => {
             if (module.error) return reject(module.error)
-          }))
+          })
           if (!err) resolve(stats)
           else reject(err)
         })

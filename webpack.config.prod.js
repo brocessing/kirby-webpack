@@ -2,10 +2,14 @@ const path = require('path')
 const webpack = require('webpack')
 const merge = require('webpack-merge')
 const ExtractTextPlugin = require('extract-text-webpack-plugin')
+
+const UglifyPlugin = require('uglifyjs-webpack-plugin')
+
 const common = require('./webpack.config.common')
 const user = require('./scripts/utils/format-config')(require('./main.config.js'))
 
 const prodConfig = {
+  mode: 'production',
   entry: user.entries,
   module: {
     rules: [
@@ -19,6 +23,9 @@ const prodConfig = {
     ]
   },
   plugins: [
+    new webpack.LoaderOptionsPlugin({ minimize: true, debug: false }),
+    new webpack.optimize.ModuleConcatenationPlugin(),
+
     // Extract all css into one file
     new ExtractTextPlugin({
       filename: (getPath) => {
@@ -34,17 +41,21 @@ const prodConfig = {
     }),
 
     // Minification and size optimization
-    new webpack.DefinePlugin({ 'process.env': { 'NODE_ENV': '"production"' } }),
-    new webpack.optimize.UglifyJsPlugin({
-      compress: { warnings: false, screw_ie8: true, drop_console: true },
-      output: { comments: false },
-      mangle: { screw_ie8: true },
-      sourceMap: true
+    new UglifyPlugin({
+      sourceMap: true,
+      parallel: true,
+      uglifyOptions: {
+        mangle: true,
+        keep_classnames: true,
+        keep_fnames: false,
+        compress: { inline: false, drop_console: true },
+        output: { comments: false }
+      }
     }),
+
     new webpack.optimize.OccurrenceOrderPlugin()
   ],
-  devtool: '#source-map',
-  bail: true
+  devtool: '#source-map'
 }
 
 module.exports = merge(common.webpack, prodConfig)

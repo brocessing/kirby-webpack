@@ -5,10 +5,11 @@ const path = require('path')
  * All file will be passed to your webpack config.
  * Formatted as { input: output }
  * paths are relative to your project root (__dirname)
+ * The builds folder in www/assets is auto cleaned after each build.
  */
 const entries = {
-  'src/index.js': 'www/assets/bundle.js',
-  'src/index.less': 'www/assets/bundle.css'
+  'src/index.js': 'www/assets/builds/bundle.js',
+  'src/index.less': 'www/assets/builds/bundle.css'
 }
 
 /**
@@ -74,6 +75,14 @@ const devServer = {
   // You have to edit this to have the devServer working on Windows.
   // Use the proxy opt if you can't use / don't want to use a built-in php serv.
   phpBinary: 'php',
+
+  // Host used by the php built-in server. Only used when proxy is false.
+  // Default is localhost.
+  // On Mac, the default will be [::1] (IPv6 equivalent of localhost)
+  // See: http://php.net/manual/en/features.commandline.webserver.php#120449
+  // You might need to change config/config.localhost.php into config.[YOURHOST].php
+  // In order for kirby-webpack to continue working with your host
+  phpHost: 'localhost',
 
   // Set this to true to display PHP logs in your terminal
   // /!\ does nothing if you use the `proxy` option

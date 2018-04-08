@@ -8,7 +8,8 @@ const cssLoaders = (
     {
       loader: 'style-loader',
       options: {
-        sourceMap: true
+        sourceMap: true,
+        singleton: true // avoid CSS Flashing
       }
     }
   ].concat(common.CSSLoaders)
@@ -31,6 +32,7 @@ if (user.css.preprocessorLoader) {
 }
 
 const devConfig = {
+  mode: 'development',
   entry: user.entries,
   module: {
     rules: [
@@ -51,6 +53,7 @@ const devConfig = {
   },
   plugins: [
     new webpack.NoEmitOnErrorsPlugin(),
+    new webpack.NamedModulesPlugin(),
     new webpack.HotModuleReplacementPlugin()
   ],
   devtool: '#eval-source-map'
