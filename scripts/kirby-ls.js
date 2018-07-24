@@ -1,7 +1,6 @@
 const { modules } = require('../kirby.config.json')
 
-const sh = require('kool-shell')()
-  .use(require('kool-shell/plugins/log'), {colors: true})
+const sh = require('kool-shell/namespaced')('__kirbywebpack')
 
 function buildBranch (index, length, parent = '') {
   return parent.replace(/├/g, '│').replace(/[─└]/g, ' ') +

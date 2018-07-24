@@ -4,10 +4,7 @@ const registerModule = require('./utils/kirby-register-module')
 
 const { paths } = require('../main.config')
 const ignore = require('./utils/update-gitignore')
-const sh = require('kool-shell')()
-  .use(require('kool-shell/plugins/log'), {colors: true})
-  .use(require('kool-shell/plugins/input'))
-  .use(require('kool-shell/plugins/spinner'))
+const sh = require('kool-shell/namespaced')('__kirbywebpack')
 
 const args = process.argv.slice(2)
 const shouldIgnore = !~args.indexOf('--no-ignore')

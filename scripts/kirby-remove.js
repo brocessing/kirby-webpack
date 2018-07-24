@@ -3,9 +3,7 @@ const fs = require('fs-extra')
 const ignore = require('./utils/update-gitignore')
 const unregister = require('./utils/kirby-unregister-module')
 
-const sh = require('kool-shell')()
-  .use(require('kool-shell/plugins/log'), {colors: true})
-  .use(require('kool-shell/plugins/select'))
+const sh = require('kool-shell/namespaced')('__kirbywebpack')
 
 const kirbyModules = require('./utils/kirby-modules').map(module => Object.assign({}, module, {
   value: module.category + '/' + module.name

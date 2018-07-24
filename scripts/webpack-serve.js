@@ -15,9 +15,7 @@ const Tail = require('tail').Tail
 
 const user = require('../main.config.js')
 
-const sh = require('kool-shell')()
-  .use(require('kool-shell/plugins/log'))
-  .use(require('kool-shell/plugins/exit'))
+const sh = require('kool-shell/namespaced')('__kirbywebpack')
 
 const LOGPATH = path.join(process.cwd(), 'php-error.log')
 const bs = browserSync.create()

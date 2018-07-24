@@ -6,9 +6,7 @@ const updateModule = require('./utils/kirby-update-module')
 
 const { paths } = require('../main.config')
 const ignore = require('./utils/update-gitignore')
-const sh = require('kool-shell')()
-  .use(require('kool-shell/plugins/log'), {colors: true})
-  .use(require('kool-shell/plugins/spinner'))
+const sh = require('kool-shell/namespaced')('__kirbywebpack')
 
 // @TODO: proper arguments handling with minimist
 const force = (process.argv[2] === '-f' || process.argv[2] === '--force')

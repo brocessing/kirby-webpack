@@ -1,6 +1,5 @@
 const path = require('path')
-const sh = require('kool-shell')()
-  .use(require('kool-shell/plugins/log'))
+const sh = require('kool-shell/namespaced')('__kirbywebpack')
 
 const PREPROC_LOADER = {
   less: 'less-loader',

@@ -3,11 +3,7 @@ const pjson = require('../package.json')
 
 const devDeps = Object.keys(pjson.devDependencies || {})
 
-const sh = require('kool-shell')()
-  .use(require('kool-shell/plugins/log'))
-  .use(require('kool-shell/plugins/exit'))
-  .use(require('kool-shell/plugins/exec'))
-  .use(require('kool-shell/plugins/spinner'))
+const sh = require('kool-shell/namespaced')('__kirbywebpack')
 
 const CORES = {
   less: 'less',

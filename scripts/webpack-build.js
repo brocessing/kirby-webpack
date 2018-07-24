@@ -7,9 +7,7 @@ const webpackConfig = require('../webpack.config.prod')
 const ProgressBarPlugin = require('progress-bar-webpack-plugin')
 const user = require('./utils/format-config')(require('../main.config.js'))
 
-const sh = require('kool-shell')()
-  .use(require('kool-shell/plugins/log'))
-  .use(require('kool-shell/plugins/exit'))
+const sh = require('kool-shell/namespaced')('__kirbywebpack')
 
 const compiler = webpack(webpackConfig)
 
