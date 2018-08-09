@@ -44,7 +44,12 @@ function phpInit () {
   let args = [
     '-d', 'upload_max_filesize=100M',
     '-d', 'post_max_size=500M',
-    '-d', 'short_open_tag=On'
+    '-d', 'short_open_tag=On',
+
+    // enable custom php router
+    // to handle routes with dots in it (like /default.json)
+    // this is needed to use content representations
+    path.join(user.paths.www, 'site', 'router.php')
   ]
 
   if (user.devServer.logPhpErrors) {
