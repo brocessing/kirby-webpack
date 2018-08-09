@@ -100,7 +100,7 @@ function webpackInit () {
       modules: false
     }
   })
-  compiler.plugin('done', () => {
+  compiler.hooks.done.tap('kirbywebpack-done', () => {
     // init the browserSync server once a first build is ready
     if (isWebpackInit) return
     isWebpackInit = true
