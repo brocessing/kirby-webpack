@@ -23,7 +23,6 @@ const prodConfig = {
     ]
   },
   plugins: [
-    new webpack.LoaderOptionsPlugin({ minimize: true, debug: false }),
     new webpack.optimize.ModuleConcatenationPlugin(),
 
     // Extract all css into one file

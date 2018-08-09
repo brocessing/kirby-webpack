@@ -6,8 +6,7 @@ const CSSLoaders = [
     loader: 'css-loader',
     options: {
       url: !!(user.appEnv === 'development'),
-      sourceMap: true,
-      minimize: !!(user.appEnv === 'production')
+      sourceMap: true
     }
   },
   {
