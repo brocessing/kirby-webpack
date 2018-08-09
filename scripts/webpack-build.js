@@ -11,13 +11,11 @@ const sh = require('kool-shell/namespaced')('__kirbywebpack')
 
 const compiler = webpack(webpackConfig)
 
-compiler.apply(
-  new ProgressBarPlugin({
-    format: sh.colors.gray('build [:bar] :percent'),
-    clear: true,
-    summary: false
-  })
-)
+new ProgressBarPlugin({
+  format: sh.colors.gray('build [:bar] :percent'),
+  clear: true,
+  summary: false
+}).apply(compiler)
 
 Promise.resolve()
   .then(() => fs.remove(path.join(user.paths.kirby.assets, 'builds')))
