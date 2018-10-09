@@ -33,7 +33,7 @@ if (user.css.preprocessorLoader) {
 
 const devConfig = {
   mode: 'development',
-  entry: user.entries,
+  devtool: 'eval-source-map',
   module: {
     rules: [
       {
@@ -53,10 +53,8 @@ const devConfig = {
   },
   plugins: [
     new webpack.NoEmitOnErrorsPlugin(),
-    new webpack.NamedModulesPlugin(),
     new webpack.HotModuleReplacementPlugin()
-  ],
-  devtool: '#eval-source-map'
+  ]
 }
 
 module.exports = merge(common.webpack, devConfig)

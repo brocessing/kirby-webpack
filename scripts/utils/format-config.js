@@ -18,17 +18,25 @@ let cached = null
 function formatConfig (config) {
   if (cached) return cached
 
+  const isDev = config.appEnv === 'development'
+
   // format entries for webpack
   const nEntries = {}
   const projectRoot = path.join(__dirname, '..', '..')
   for (let k in config.entries) {
     const relativeWww = path.relative(projectRoot, config.paths.www)
     const src = path.join(projectRoot, k)
-    const dist = path.relative(relativeWww, config.entries[k])
+    let dist = path.relative(relativeWww, config.entries[k])
+    const ext = path.parse(dist).ext
+
+    // Remove extension from dist name
+    // In dev, if it's css, append .css
+    if (!isDev || ext !== '.css') dist = dist.substr(0, dist.length - ext.length)
+
     if (
       dist.length >= 2 &&
       dist.substr(0, 2) === '..' &&
-      config.appEnv === 'development'
+      isDev
     ) {
       sh.log()
       sh.warn(
@@ -39,7 +47,7 @@ function formatConfig (config) {
     }
 
     if (!nEntries[dist]) {
-      nEntries[dist] = (config.appEnv === 'development')
+      nEntries[dist] = isDev
         ? [src, 'webpack-hot-middleware/client?reload=true']
         : src
     } else if (Array.isArray(nEntries[dist])) {
