@@ -41,7 +41,7 @@ const prodConfig = {
         styles: {
           name: 'styles',
           test: /\.css$/,
-          chunks: 'all',
+          // chunks: 'all',
           enforce: true
         }
       }
