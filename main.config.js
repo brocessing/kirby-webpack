@@ -31,6 +31,9 @@ const css = {
  */
 const paths = {}
 
+// all your bundlable sources (less/sass/styl & js) will be in this folder
+paths.src = path.join('__dirname', 'src')
+
 // public folder to deploy to your server
 // if you use a proxy, this is often the document root of the server used
 paths.www = path.join(__dirname, 'www')
@@ -47,13 +50,9 @@ paths.basepaths = {
 // all kirby paths
 paths.kirby = {
   core: path.join(paths.www, 'kirby'),
-  panel: path.join(paths.www, 'panel'),
   assets: path.join(paths.www, 'assets'),
   cache: path.join(paths.www, 'site', 'cache'),
-  fields: path.join(paths.www, 'site', 'fields'),
-  tags: path.join(paths.www, 'site', 'tags'),
-  plugins: path.join(paths.www, 'site', 'plugins'),
-  widgets: path.join(paths.www, 'site', 'widgets')
+  plugins: path.join(paths.www, 'site', 'plugins')
 }
 
 /**

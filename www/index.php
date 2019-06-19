@@ -1,16 +1,5 @@
 <?php
 
-define('DS', DIRECTORY_SEPARATOR);
+require __DIR__ . '/kirby/bootstrap.php';
 
-// load kirby
-require(__DIR__ . DS . 'kirby' . DS . 'bootstrap.php');
-
-// check for a custom site.php
-if(file_exists(__DIR__ . DS . 'site.php')) {
-  require(__DIR__ . DS . 'site.php');
-} else {
-  $kirby = kirby();
-}
-
-// render
-echo $kirby->launch();
+echo (new Kirby)->render();

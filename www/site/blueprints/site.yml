@@ -1,0 +1,50 @@
+title: Site
+
+options:
+  changeTitle: false
+
+tabs:
+  projects:
+    label: Site
+    icon: text
+    columns:
+      - width: 1/3
+        fields:
+          pinned:
+            label: Projets en page d'accueil
+            type: pages
+            translate: false
+            help: |
+              <b>Attention</b> : seuls les projets publiés peuvent être épinglés en page d'accueil.
+            empty: Aucun projet en page d'accueil
+            query: site.find("projects").children.listed
+          quick_access:
+            label: Accès rapide
+            type: pages
+            translate: false
+            # NOTE: change this to edit which links should be in this section
+            disabled: false
+
+      - width: 2/3
+        sections:
+          latest_publics_projects:
+            extends: sections/projects
+            headline: Derniers projets publiés
+            status: listed
+            info: "édité le {{ page.modified("d/m/Y") }} à {{ page.modified("H:i")}}"
+          latest_draft_projects:
+            extends: sections/projects
+            headline: Projets brouillons
+            status: drafts
+            info: "édité le {{ page.modified("d/m/Y") }} à {{ page.modified("H:i")}}"
+
+  options:
+    label: Options
+    icon: cog
+    columns:
+      - width: 2/3
+        sections:
+          seo: sections/seo
+      - width: 1/3
+        sections:
+          social: sections/social

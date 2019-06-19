@@ -49,7 +49,7 @@ function phpInit () {
     // enable custom php router
     // to handle routes with dots in it (like /default.json)
     // this is needed to use content representations
-    path.join(user.paths.www, 'site', 'router.php')
+    path.join(user.paths.www, 'kirby', 'router.php')
   ]
 
   if (user.devServer.logPhpErrors) {
@@ -60,7 +60,7 @@ function phpInit () {
     bin: user.devServer.phpBinary || 'php',
     host: user.devServer.phpHost || 'localhost',
     root: user.paths.www,
-    verbose: false,
+    verbose: true,
     promptBinary: true,
     args
   })

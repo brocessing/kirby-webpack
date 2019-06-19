@@ -1,6 +1,6 @@
 {
   "name": "kirby-webpack",
-  "version": "0.11.0",
+  "version": "1.0.0",
   "description": "A kirby starter-kit with modern frontend tools",
   "main": "index.js",
   "scripts": {
@@ -11,7 +11,6 @@
     "lint": "npm run lint:js",
     "lint:js": "eslint --ext .js ./config ./scripts ./src --cache",
     "test": "npm run lint",
-    "postinstall": "npm run kirby:update",
     "kirby:update": "node scripts/kirby-update.js",
     "kirby:ls": "node scripts/kirby-ls.js",
     "kirby:add": "node scripts/kirby-add.js",
@@ -21,9 +20,6 @@
     "type": "git",
     "url": "git+https://github.com/brocessing/kirby-webpack.git"
   },
-  "keywords": [],
-  "author": "Brocessing (http://github.com/brocessing)",
-  "license": "MIT",
   "bugs": {
     "url": "https://github.com/brocessing/kirby-webpack/issues"
   },
