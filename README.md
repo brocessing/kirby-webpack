@@ -262,7 +262,7 @@ Alternatively, use `npm run kirby:add` to add plugins via an interactive shell.
   "modules": {
     "core": "https://github.com/getkirby/kirby.git",
     "plugins": {
-      'kirby-color': 'https://github.com/TimOetting/kirby-color.git'
+      "kirby-color": "https://github.com/TimOetting/kirby-color.git"
     }
   }
 }
