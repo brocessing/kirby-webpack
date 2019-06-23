@@ -11,6 +11,7 @@
     "lint": "npm run lint:js",
     "lint:js": "eslint --ext .js ./config ./scripts ./src --cache",
     "test": "npm run lint",
+    "postinstall": "npm run kirby:update",
     "kirby:update": "node scripts/kirby-update.js",
     "kirby:ls": "node scripts/kirby-ls.js",
     "kirby:add": "node scripts/kirby-add.js",
