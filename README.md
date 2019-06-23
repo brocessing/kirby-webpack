@@ -3,7 +3,7 @@
 </p>
 
 <h1 align="center">kirby-webpack</h1>
-<h3 align="center">A kirby starter-kit with modern frontend tools</h3>
+<h3 align="center">A Kirby 2 starter-kit with modern frontend tools</h3>
 
 <div align="center">
   <!-- Version -->
