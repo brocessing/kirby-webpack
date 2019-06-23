@@ -3,12 +3,16 @@
 </p>
 
 <h1 align="center">kirby-webpack</h1>
-<h3 align="center">A kirby 3 starter-kit with modern frontend tools</h3>
+<h3 align="center">A Kirby 3 starter-kit with modern frontend tools</h3>
 
 <div align="center">
   <!-- License -->
   <a href="https://raw.githubusercontent.com/brocessing/kirby-webpack/master/LICENSE"><img src="https://img.shields.io/badge/license-MIT-blue.svg?style=flat-square" alt="License" /></a>
 </div>
+
+<br>
+
+> NOTE : This starter-kit is for Kirby 3. For the Kirby 2 version of this starter-kit, [check this branch](https://github.com/brocessing/kirby-webpack/tree/kirby-2).
 
 <br><br><br><br>
 
@@ -207,7 +211,7 @@ The registered plugins will be added to [`.gitignore`](.gitignore), and updated 
 
 ### Main
 - `npm install`
->Install all npm dependencies, then install all Kirby-webpack dependencies.
+>Install all npm dependencies, then install all Kirby-webpack dependencies. Please note that the `postinstall` script automatically installs the Kirby core registered in [`kirby.config.json`](kirby.config.json).
 
 - `npm run start`
 >Start the PHP dev server with livereload on all your Kirby-webpack files.
