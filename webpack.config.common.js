@@ -29,24 +29,26 @@ if (user.css.preprocessorLoader) {
 }
 
 const webpack = {
-  entry: user.entries,
   output: {
     publicPath: user.paths.basepath,
     // we bundle from the www folder to avoid messing with the webpack dev middleware
     // all entries src/dest path are converted through scripts/utils/format-config.js
     path: user.paths.www,
-    filename: '[name].js',
+    filename: '[name]',
     chunkFilename: '[name].[id].chunk.js'
   },
   resolve: {
-    alias: {}
+    alias: {
+      // if you need to create aliases for your JS imports, do it here :
+      // utils: path.join(user.paths.src, 'utils')
+    }
   },
   module: {
     rules: [
       {
         test: /\.(js)$/,
         loader: 'babel-loader',
-        exclude: /(node_modules)/
+        exclude: /(node_modules|bower_components)/
       }
     ]
   },

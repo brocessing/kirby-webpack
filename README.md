@@ -3,14 +3,16 @@
 </p>
 
 <h1 align="center">kirby-webpack</h1>
-<h3 align="center">A kirby starter-kit with modern frontend tools</h3>
+<h3 align="center">A Kirby 3 starter-kit with modern frontend tools</h3>
 
 <div align="center">
-  <!-- Version -->
-  <a href="https://github.com/brocessing/kirby-webpack/releases"><img src="https://img.shields.io/badge/version-0.10.0-green.svg?style=flat-square" alt="Version"/></a>
   <!-- License -->
   <a href="https://raw.githubusercontent.com/brocessing/kirby-webpack/master/LICENSE"><img src="https://img.shields.io/badge/license-MIT-blue.svg?style=flat-square" alt="License" /></a>
 </div>
+
+<br>
+
+> NOTE : This starter-kit is for **Kirby 3**. For the Kirby 2 version of this starter-kit, [check this branch](https://github.com/brocessing/kirby-webpack/tree/kirby-2).
 
 <br><br><br><br>
 
@@ -48,8 +50,8 @@ Kirby-webpack wraps PHP and [Kirby CMS](http://getkirby.com) inside a full pre-c
 - [Browsersync](https://browsersync.io/) dev server with **livereload** on all your website files
 - **Built-in PHP Server** wrapped in the dev server - we handle PHP for you
 - [Webpack 4](https://webpack.github.io/) with [HMR](https://webpack.github.io/docs/hot-module-replacement.html) 
-- [LESS](http://lesscss.org/) + [PostCSS](http://postcss.org/)  + [Autoprefixer](https://github.com/postcss/autoprefixer) 
-- Option to **automatically switch from [LESS](http://lesscss.org/) to [SASS](http://sass-lang.com/) or [Stylus](http://stylus-lang.com/)**
+- [SASS](https://sass-lang.com/) + [PostCSS](http://postcss.org/)  + [Autoprefixer](https://github.com/postcss/autoprefixer) 
+- Option to **automatically switch from [SASS](https://sass-lang.com/) to [LESS](http://lesscss.org/) or [Stylus](http://stylus-lang.com/)**
 - **`ES6`** transpilation with [babel](https://babeljs.io/) + [babel-preset-env](https://github.com/babel/babel-preset-env)
 - Linting with [ESLint](https://eslint.org/) and the [Standard](http://standardjs.com/) presets
 - Generate a `stats.json` file from your bundled js to optimize your dependency tree
@@ -168,17 +170,6 @@ Continue to use `css()` for simple vendor CSS files which don't require hot-relo
 ?>
 ```
 
-#### License file
-Kirby's license key registration has been moved into its own [`config/license.php`](www/site/config) file.  
-This file is **git ignored**, and required in [`config.php`](www/site/config/config.php). That way you can enter a license key without fear to go public when using Git.
-
-> In a multi-environement setup, require [`license.php`](www/site/config/license.php) in all revelant config files.
-
-```php
-@include __DIR__ . DS . 'license.php';
-```
-<sup>Thanks to [Malvese](https://forum.getkirby.com/t/license-in-config-php-and-deployment/1132) for the idea.</sup>
-
 #### Changes to `config.localhost.php`
 > These lines are required in [`config.localhost.php`](www/site/config/config.localhost.php) for the dev server to work.
 
@@ -220,7 +211,7 @@ The registered plugins will be added to [`.gitignore`](.gitignore), and updated 
 
 ### Main
 - `npm install`
->Install all npm dependencies, then install all Kirby-webpack dependencies.
+>Install all npm dependencies, then install all Kirby-webpack dependencies. Please note that the `postinstall` script automatically installs the Kirby core registered in [`kirby.config.json`](kirby.config.json).
 
 - `npm run start`
 >Start the PHP dev server with livereload on all your Kirby-webpack files.
@@ -274,17 +265,13 @@ Alternatively, use `npm run kirby:add` to add plugins via an interactive shell.
 {
   "modules": {
     "core": "https://github.com/getkirby/kirby.git",
-    "panel": "https://github.com/getkirby/panel.git",
-    "fields": {
-      "markdown": "https://github.com/JonasDoebertin/kirby-visual-markdown"
-    },
-    "plugins": {},
-    "tags": {},
-    "widgets": {}
+    "plugins": {
+      "kirby-color": "https://github.com/TimOetting/kirby-color.git"
+    }
   }
 }
 ```
-> Note: the left-hand value corresponds to the name of the plugin, not the name of its git repository. For instance, [kirby-visual-markdown](https://github.com/JonasDoebertin/kirby-visual-markdown) is named `markdown`, and needs to be in a folder named `markdown`.
+> Note: the left-hand value corresponds to the name of the plugin, not the name of its git repository.
 
 <br><br>
 

@@ -29,25 +29,6 @@ function askURL () {
   })
 }
 
-function askType () {
-  const modulePaths = {
-    fields: paths.kirby.fields,
-    plugins: paths.kirby.plugins,
-    tags: paths.kirby.tags,
-    widgets: paths.kirby.widgets
-  }
-
-  return sh.input('Category: ' + sh.colors.gray(`(${Object.keys(modulePaths).join('|')})`), {
-    onSubmit: answer => {
-      if (!(answer in modulePaths)) {
-        sh.error('Invalid module type')
-        return askType()
-      }
-      return {value: answer, path: modulePaths[answer]}
-    }
-  })
-}
-
 const kirbyTxt = sh.colors.blue('[Kirby Updater] ')
 const spinner = sh.spinner({ title: kirbyTxt + '%s' })
 
@@ -60,13 +41,11 @@ Promise.resolve()
 
     let name = repoPath.split('/').pop()
     return sh.input('Module name:' + (name ? sh.colors.gray(` (${name})`) : ''), {
-      onSubmit: answer => { kirbyModule.name = answer || name }
+      onSubmit: answer => {
+        kirbyModule.name = answer || name
+        kirbyModule.dest = path.join(paths.kirby.plugins, kirbyModule.name)
+      }
     })
-  })
-  .then(() => askType())
-  .then(category => {
-    kirbyModule.category = category.value
-    kirbyModule.dest = path.join(category.path, kirbyModule.name)
   })
   .then(() => {
     sh.log()

@@ -1,4 +1,4 @@
-const merge = require('webpack-merge')
+const { merge } = require('webpack-merge')
 const webpack = require('webpack')
 const common = require('./webpack.config.common')
 const user = require('./scripts/utils/format-config')(require('./main.config.js'))
@@ -8,8 +8,7 @@ const cssLoaders = (
     {
       loader: 'style-loader',
       options: {
-        sourceMap: true,
-        singleton: true // avoid CSS Flashing
+        injectType: 'singletonStyleTag'
       }
     }
   ].concat(common.CSSLoaders)
@@ -33,7 +32,7 @@ if (user.css.preprocessorLoader) {
 
 const devConfig = {
   mode: 'development',
-  devtool: 'eval-source-map',
+  entry: user.entries,
   module: {
     rules: [
       {
@@ -53,8 +52,10 @@ const devConfig = {
   },
   plugins: [
     new webpack.NoEmitOnErrorsPlugin(),
+    new webpack.NamedModulesPlugin(),
     new webpack.HotModuleReplacementPlugin()
-  ]
+  ],
+  devtool: '#eval-source-map'
 }
 
 module.exports = merge(common.webpack, devConfig)

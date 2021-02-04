@@ -49,7 +49,7 @@ function phpInit () {
     // enable custom php router
     // to handle routes with dots in it (like /default.json)
     // this is needed to use content representations
-    path.join(user.paths.www, 'site', 'router.php')
+    path.join(user.paths.www, 'kirby', 'router.php')
   ]
 
   if (user.devServer.logPhpErrors) {
@@ -60,12 +60,12 @@ function phpInit () {
     bin: user.devServer.phpBinary || 'php',
     host: user.devServer.phpHost || 'localhost',
     root: user.paths.www,
-    verbose: false,
+    verbose: true,
     promptBinary: true,
     args
   })
 
-  phpServer.on('start', ({host, port}) => {
+  phpServer.on('start', ({ host, port }) => {
     if (isPhpInit) return
     // php server can't be reach through localhost, we have to use [::1]
     sh.log('PHP Server started on ' + host + ':' + port + '\n')
@@ -150,7 +150,7 @@ function browserSyncInit () {
         path.join(user.paths.www, 'content', '**/*'),
         path.join(user.paths.www, 'site', 'cache', '**/*'),
         path.join(user.paths.www, 'site', 'accounts', '**/*'),
-        path.join(user.paths.www, 'thumbs', '**/*')
+        path.join(user.paths.www, 'media', '**/*')
       ].concat(user.devServer.ignored)
     }
   }

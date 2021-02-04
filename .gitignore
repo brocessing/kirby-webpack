@@ -2,15 +2,16 @@
 # By default, git ignores all content from sub-pages folders
 # Comment the line below if you want git to handle all your content
 www/content/*/*/*
-www/thumbs/*
-!www/thumbs/index.html
+
+www/media/*
+!www/media/index.html
 www/site/cache/*
 !www/site/cache/index.html
 www/site/accounts/*
 !www/site/accounts/index.html
-www/assets/avatars/*
-!www/assets/avatars/index.html
-www/site/config/license.php
+www/site/sessions/*
+!www/site/sessions/index.html
+www/site/config/credentials.php
 
 ### PHP ###
 php-error.log*
@@ -70,5 +71,4 @@ Temporary Items
 
 # <KirbyWebpack>
 www/kirby
-www/panel
 # </KirbyWebpack>
