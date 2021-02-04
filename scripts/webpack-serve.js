@@ -65,7 +65,7 @@ function phpInit () {
     args
   })
 
-  phpServer.on('start', ({host, port}) => {
+  phpServer.on('start', ({ host, port }) => {
     if (isPhpInit) return
     // php server can't be reach through localhost, we have to use [::1]
     sh.log('PHP Server started on ' + host + ':' + port + '\n')
@@ -150,7 +150,7 @@ function browserSyncInit () {
         path.join(user.paths.www, 'content', '**/*'),
         path.join(user.paths.www, 'site', 'cache', '**/*'),
         path.join(user.paths.www, 'site', 'accounts', '**/*'),
-        path.join(user.paths.www, 'thumbs', '**/*')
+        path.join(user.paths.www, 'media', '**/*')
       ].concat(user.devServer.ignored)
     }
   }
