@@ -7,7 +7,7 @@ const sh = require('kool-shell/namespaced')('__kirbywebpack')
 
 const CORES = {
   less: 'less',
-  sass: 'node-sass',
+  sass: 'sass',
   stylus: 'stylus'
 }
 

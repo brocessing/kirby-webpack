@@ -1,9 +1,12 @@
 const { appEnv } = require('./main.config')
 
 const config = {
-  plugins: {
-    autoprefixer: { browsers: ['last 2 versions'] }
-  }
+  plugins: [
+    require('autoprefixer'),
+    require('postcss-preset-env')({
+      browsers: 'last 2 versions'
+    })
+  ]
 }
 
 // Add css nano for production

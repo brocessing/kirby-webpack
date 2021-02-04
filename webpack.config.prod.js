@@ -1,9 +1,8 @@
 const path = require('path')
 const webpack = require('webpack')
-const merge = require('webpack-merge')
+const { merge } = require('webpack-merge')
+const TerserPlugin = require('terser-webpack-plugin')
 const ExtractTextPlugin = require('extract-text-webpack-plugin')
-
-const UglifyPlugin = require('uglifyjs-webpack-plugin')
 
 const common = require('./webpack.config.common')
 const user = require('./scripts/utils/format-config')(require('./main.config.js'))
@@ -39,21 +38,21 @@ const prodConfig = {
       allChunks: true
     }),
 
-    // Minification and size optimization
-    new UglifyPlugin({
-      sourceMap: true,
-      parallel: true,
-      uglifyOptions: {
-        mangle: true,
-        keep_classnames: true,
-        keep_fnames: false,
-        compress: { inline: false, drop_console: true },
-        output: { comments: false }
-      }
-    }),
-
     new webpack.optimize.OccurrenceOrderPlugin()
   ],
+  optimization: {
+    minimizer: [
+      new TerserPlugin({
+        test: /\.js(\?.*)?$/i,
+        parallel: true,
+        terserOptions: {
+          sourceMap: true,
+          compress: { inline: false, drop_console: true },
+          mangle: true // Note `mangle.properties` is `false` by default.
+        }
+      })
+    ]
+  },
   devtool: '#source-map'
 }
 
